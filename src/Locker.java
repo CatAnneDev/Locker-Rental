@@ -11,30 +11,30 @@ class Locker
         locker_pin = pin;
     }
 
-    public void set_locker_number(int l_number)
+    public void setLockerNumber(int l_number)
     {
         locker_number = lock_num;
     }
-    public int get_locker_number()
+    public int geTLockerNumber()
     {
         return locker_number;
     }
 
-    public void set_rental_status(boolean rent_stat)
+    public void setRentalStatus(boolean rent_stat)
     {
         rental_status = rent_stat;
     }
 
-    public boolean get_rental_status() {
+    public boolean getRentalStatus() {
         return rental_status;
     }
 
-    public void set_locker_pin(Pin pin)
+    public void setLockerPin(Pin pin)
     {
         locker_pin = pin;
     }
 
-    public Pin getLocker_pin() {
+    public Pin getLockerPin() {
         return locker_pin;
     }
 }

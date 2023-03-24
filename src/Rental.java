@@ -1,15 +1,28 @@
 import java.util.Date;
+import java.lang.String;
 
 public class Rental {
 	private int rental_num;
 	private Date checkout_date;
+	private String semester;
 	private Renter renter;
 	
-	public Rental (Date d, int r_num, Renter renter)
+	public Rental (int r_num, Date d, String s, Renter renter)
 	{
-		checkout_date = d;
 		rental_num = r_num;
+		checkout_date = d;
+		semester = s;
 		renter = renter;
+	}
+
+	public void setRentalNumber (int r_num)
+	{
+		rental_num = r_num;
+	}
+
+	public int getRentalNumber ()
+	{
+		return rental_num;
 	}
 
 	public void setDate (Date d)
@@ -22,14 +35,14 @@ public class Rental {
 		return checkout_date;
 	}
 
-	public void setRentalNumber (int r_num)
+	public void setSemester (String s)
 	{
-		rental_num = r_num;
+		semester = s;
 	}
 
-	public int getRentalNumber ()
+	public int getSemester ()
 	{
-		return rental_num;
+		return semester;
 	}
 
 	public void setRenter (Renter renter)

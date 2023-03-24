@@ -1,17 +1,17 @@
 import java.util.Date;
-import java.lang.String;
+import java.util.Arrays
 
 public class Rental {
 	private int rental_num;
 	private Date checkout_date;
-	private String semester;
+	private String[] semesters;
 	private Renter renter;
 	
-	public Rental (int r_num, Date d, String s, Renter renter)
+	public Rental (int r_num, Date d, String[] s, Renter renter)
 	{
 		rental_num = r_num;
 		checkout_date = d;
-		semester = s;
+		semesters = s;
 		renter = renter;
 	}
 
@@ -35,14 +35,14 @@ public class Rental {
 		return checkout_date;
 	}
 
-	public void setSemester (String s)
+	public void setSemesters (String[] s)
 	{
-		semester = s;
+		semesters = s;
 	}
 
-	public int getSemester ()
+	public String[] getSemesters ()
 	{
-		return semester;
+		return semesters;
 	}
 
 	public void setRenter (Renter renter)

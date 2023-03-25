@@ -4,7 +4,7 @@ class Locker
     public boolean rental_status;
     Pin locker_pin;
 
-    public Rental (int lock_num, boolean rent_stat, Pin pin)
+    public void Rental (int lock_num, boolean rent_stat, Pin pin)
     {
         locker_number = lock_num;
         rental_status = rent_stat;

@@ -1,5 +1,4 @@
 import java.util.Date;
-import java.util.Arrays
 
 public class Rental {
 	private int rental_num;
@@ -7,12 +6,12 @@ public class Rental {
 	private String[] semesters;
 	private Renter renter;
 	
-	public Rental (int r_num, Date d, String[] s, Renter renter)
+	public Rental (int r_num, Date d, String[] s, Renter r)
 	{
 		rental_num = r_num;
 		checkout_date = d;
 		semesters = s;
-		renter = renter;
+		renter = r;
 	}
 
 	public void setRentalNumber (int r_num)
@@ -45,9 +44,9 @@ public class Rental {
 		return semesters;
 	}
 
-	public void setRenter (Renter renter)
+	public void setRenter (Renter r)
 	{
-		renter = renter;
+		renter = r;
 	}
 
 	public Renter getRenter ()

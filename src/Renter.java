@@ -1,4 +1,5 @@
 import java.lang.String;
+import java.util.ArrayList;
 
 public class Renter
 {
@@ -6,9 +7,9 @@ public class Renter
     private String renterEmail;
     private String phoneNumber;
 
-    private List<Rental> Rentals;
+    private ArrayList<Rental> Rentals;
 
-    public Renter(String name, String email, String number, List<Rental> rentals)
+    public Renter(String name, String email, String number, ArrayList<Rental> rentals)
     {
         renterName = name;
         renterEmail = email;
@@ -24,7 +25,7 @@ public class Renter
 
     public String getRenterEmail()
     {
-        return RenterEmail;
+        return renterEmail;
     }
 
     public String getPhoneNumber()
@@ -32,7 +33,7 @@ public class Renter
         return phoneNumber;
     }
 
-    public List<Rental> getRentals()
+    public ArrayList<Rental> getRentals()
     {
         return Rentals;
     }
@@ -52,7 +53,7 @@ public class Renter
         this.phoneNumber = phoneNumber;
     }
 
-    public void setRentals(List<Rental> Rentals)
+    public void setRentals(ArrayList<Rental> Rentals)
     {
         this.Rentals = Rentals;
     }

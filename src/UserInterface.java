@@ -8,6 +8,8 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.time.LocalDateTime;  
+import java.time.format.DateTimeFormatter;  
 
 public class UserInterface{
 	//Thematic colors
@@ -70,6 +72,7 @@ public class UserInterface{
 		
 		JButton AddButton = new JButton("Add a new Rental");
 		AddButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+		AddButton.setMaximumSize(new Dimension(175,50));
 		AddButton.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) { 
 					System.out.println("Add Button");
@@ -79,6 +82,7 @@ public class UserInterface{
 		
 		JButton ViewButton = new JButton("View Rentals");
 		ViewButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+		ViewButton.setMaximumSize(new Dimension(175,50));
 		ViewButton.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) { 
 					System.out.println("View Button");
@@ -87,6 +91,7 @@ public class UserInterface{
 		
 		JButton RemoveButton  = new JButton("Remove a Rental");
 		RemoveButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+		RemoveButton.setMaximumSize(new Dimension(175,50));
 		RemoveButton.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) { 
 					System.out.println("Remove Button");
@@ -94,11 +99,11 @@ public class UserInterface{
 		} );
 		
 		//Add the componets and spacing
-		RentalOptions.add(Box.createRigidArea(new Dimension(0, 50)));
+		RentalOptions.add(Box.createRigidArea(new Dimension(0, 75)));
 		RentalOptions.add(AddButton);
-		RentalOptions.add(Box.createRigidArea(new Dimension(0, 50)));
+		RentalOptions.add(Box.createRigidArea(new Dimension(0, 75)));
 		RentalOptions.add(ViewButton);
-		RentalOptions.add(Box.createRigidArea(new Dimension(0, 50)));
+		RentalOptions.add(Box.createRigidArea(new Dimension(0, 75)));
 		RentalOptions.add(RemoveButton);
 		
 		
@@ -112,7 +117,80 @@ public class UserInterface{
 		JFrame AddFrame = new JFrame("Add a Rental");
 		AddFrame.setIconImage(icon);
 		AddFrame.setLayout(new BorderLayout());
-		AddFrame.setSize(450,350);//900 width and 700 height    
+		AddFrame.setSize(550,450);//900 width and 700 height    
+		
+		
+		//Add Fields
+		JPanel AddForm = new JPanel();
+		AddForm.setLayout(new GridLayout(0,2,35,35));
+		AddForm.setBorder(BorderFactory.createEmptyBorder(25,25,25,25));
+		
+		JLabel NameLabel = new JLabel("Name: ");
+		JTextField NameArea = new JTextField("Enter Name here.");
+		
+		JLabel EmailLabel = new JLabel("Email: ");
+		JTextField EmailArea = new JTextField("Enter Email here.");
+		
+		JLabel PhoneLabel = new JLabel("Phone: ");
+		JTextField PhoneArea = new JTextField("Enter Phone here.");
+		
+		JLabel DateLabel = new JLabel("Date: ");
+		JTextField DateArea = new JTextField(java.time.LocalDate.now().toString());
+		
+		//Radio Button section
+		JLabel TermLabel = new JLabel("Rental Term: ");
+		JPanel RadioButtonPanel = new JPanel();
+		
+		JRadioButton SpringButton = new JRadioButton();
+		JLabel SpringLabel = new JLabel("Spring");
+		JRadioButton FallButton = new JRadioButton();
+		JLabel FallLabel = new JLabel("    Fall");
+		RadioButtonPanel.setLayout(new GridLayout(0,4,5,5));
+		RadioButtonPanel.add(SpringLabel);
+		RadioButtonPanel.add(SpringButton);
+		RadioButtonPanel.add(FallLabel);
+		RadioButtonPanel.add(FallButton);
+		
+		//Addform Components
+		AddForm.add(NameLabel);
+		AddForm.add(NameArea);
+		
+		AddForm.add(EmailLabel);
+		AddForm.add(EmailArea);
+		
+		AddForm.add(PhoneLabel);
+		AddForm.add(PhoneArea);
+		
+		AddForm.add(DateLabel);
+		AddForm.add(DateArea);
+		
+		AddForm.add(TermLabel);
+		AddForm.add(RadioButtonPanel);
+		
+		//Title information
+		JLabel AddFrameTitle = new JLabel("Add a Rental");
+		AddFrameTitle.setFont(new Font(Font.DIALOG, Font.BOLD, 18));
+		AddFrameTitle.setBorder(BorderFactory.createEmptyBorder(20,5,5,5));
+		AddFrameTitle.setHorizontalAlignment(JLabel.CENTER);
+		AddFrameTitle.setVerticalAlignment(JLabel.CENTER);
+		
+		//Submit section
+		JPanel SubmitForm = new JPanel();
+		SubmitForm.setLayout(new GridLayout(0,2,5,5));
+		SubmitForm.setBorder(BorderFactory.createEmptyBorder(25,25,25,25));
+		SubmitForm.add(new JLabel(""));
+		
+		JButton SubmitButton = new JButton("Submit");
+		SubmitButton.addActionListener(new ActionListener() { 
+			public void actionPerformed(ActionEvent e) { 
+					System.out.println("Submit Button");
+			} 
+		} );
+		SubmitForm.add(SubmitButton);
+		
+		AddFrame.add(SubmitForm, BorderLayout.SOUTH);
+		AddFrame.add(AddFrameTitle, BorderLayout.NORTH);
+		AddFrame.add(AddForm, BorderLayout.CENTER);
 		AddFrame.setVisible(true);
 	}
 

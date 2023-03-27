@@ -86,6 +86,7 @@ public class UserInterface{
 		ViewButton.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) { 
 					System.out.println("View Button");
+					openViewFrame();
 			} 
 		} );
 		
@@ -167,12 +168,18 @@ public class UserInterface{
 		AddForm.add(TermLabel);
 		AddForm.add(RadioButtonPanel);
 		
+		
+		
+		
 		//Title information
 		JLabel AddFrameTitle = new JLabel("Add a Rental");
 		AddFrameTitle.setFont(new Font(Font.DIALOG, Font.BOLD, 18));
 		AddFrameTitle.setBorder(BorderFactory.createEmptyBorder(20,5,5,5));
 		AddFrameTitle.setHorizontalAlignment(JLabel.CENTER);
 		AddFrameTitle.setVerticalAlignment(JLabel.CENTER);
+		
+		
+		
 		
 		//Submit section
 		JPanel SubmitForm = new JPanel();
@@ -188,13 +195,19 @@ public class UserInterface{
 		} );
 		SubmitForm.add(SubmitButton);
 		
+		
+		
+		
 		AddFrame.add(SubmitForm, BorderLayout.SOUTH);
 		AddFrame.add(AddFrameTitle, BorderLayout.NORTH);
 		AddFrame.add(AddForm, BorderLayout.CENTER);
 		AddFrame.setVisible(true);
 	}
 
-
+	
+	private void openViewFrame() {
+		
+	}
 	
 
 

@@ -8,14 +8,16 @@ public class Renter
     private String phoneNumber;
 
     private ArrayList<Rental> Rentals;
+    private AppManager app;
 
-    public Renter(String name, String email, String number, ArrayList<Rental> rentals)
+    public Renter(String name, String email, String number, String term, AppManager a)
     {
         renterName = name;
         renterEmail = email;
         phoneNumber = number;
-        Rentals = rentals;
-
+        Rental newRental = new Rental(term, this, a); 
+        app = a;
+        a.addRenter(this);
     }
 
     public String getRenterName()

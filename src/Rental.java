@@ -2,16 +2,20 @@ import java.util.Date;
 
 public class Rental {
 	private int rental_num;
-	private Date checkout_date;
-	private String[] semesters;
+	private String checkout_date;
+	private String term;
 	private Renter renter;
+	private Locker locker;
+	private AppManager app;
 	
-	public Rental (int r_num, Date d, String[] s, Renter r)
+	public Rental (String t, Renter r, AppManager a)
 	{
-		rental_num = r_num;
-		checkout_date = d;
-		semesters = s;
+		rental_num = 1;
+		checkout_date = java.time.LocalDate.now().toString();
+		term = t;
 		renter = r;
+		app = a;
+		locker = a.checkOutLocker();
 	}
 
 	public void setRentalNumber (int r_num)
@@ -24,24 +28,24 @@ public class Rental {
 		return rental_num;
 	}
 
-	public void setDate (Date d)
+	public void setDate (String d)
 	{
 		checkout_date = d;
 	}
 
-	public Date getMonth ()
+	public String getMonth ()
 	{
 		return checkout_date;
 	}
 
-	public void setSemesters (String[] s)
+	public void setTerm (String t)
 	{
-		semesters = s;
+		term = t;
 	}
 
-	public String[] getSemesters ()
+	public String getTerm ()
 	{
-		return semesters;
+		return term;
 	}
 
 	public void setRenter (Renter r)

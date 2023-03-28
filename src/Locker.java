@@ -1,10 +1,10 @@
-class Locker
+public class Locker
 {
     public int locker_number;
     public boolean rental_status;
     Pin locker_pin;
 
-    public void Rental (int lock_num, boolean rent_stat, Pin pin)
+    public Rental(int lock_num, boolean rent_stat, Pin pin)
     {
         locker_number = lock_num;
         rental_status = rent_stat;

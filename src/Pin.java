@@ -1,4 +1,8 @@
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -6,26 +10,39 @@ import javax.swing.JOptionPane;
 
 public class Pin {
 	
-	Map<Integer, Integer[]> temp_pins;
+	int id;
 
 	String password = "pass";
-	
-	
-	public Pin() {
-		// Generate temporary dummy pins
-		temp_pins = new HashMap<>();
 
-		// Store dummy pins in "lockers" 27, 28, and 29
-		Integer[] value = new Integer[] { 1111, 2222, 3333, 4444 };
-		temp_pins.put(27, value);
-		temp_pins.put(28, value);
-		temp_pins.put(29, value);
+	String filePath = "..\\assets\\pins\\dummy_pins.json";
+	
+	
+	public Pin(int locker_id) {
+		this.id = locker_id;
 	}
 	
+	@SuppressWarnings("unchecked")
+	public int getPin() {
+		// Verify the user
+		if (verifyUser()) {
+			// Load the pins
+			Map<Integer, Integer[]> pin_map = (Map<Integer, Integer[]>) loadPins();
+
+			// Return current set pin
+			int index = pin_map.get(this.id)[0];
+			return pin_map.get(this.id)[index];
+		}
+		else {
+			// User not verified, return fail value
+			return -1;
+		}
+	}
 
 	public int getNextPin(int current_pin, int locker_id) {
 
-		
+		verifyUser();
+
+		/* 
 		// Load list of available pins for the specific locker
 		Integer[] available_pins = temp_pins.get(locker_id);
 		// Used to track index
@@ -47,6 +64,9 @@ public class Pin {
 			// Return the next pin in the list
 			return available_pins[current_index + 1];
 		}
+		*/
+
+		return 0;
 	}
 
 	/**
@@ -67,20 +87,75 @@ public class Pin {
 
 		return result;
 	}
-	
-	//private Map<Integer, Integer[]> loadPins();
-	
-	//private void storePins();
 
+	public boolean storePins(Map<Integer, Integer[]> pins) {
+		// Result of operation
+		boolean result;
+
+		try {
+			// Create necessary file objects
+            FileOutputStream fileOut = new FileOutputStream(filePath);
+            ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
+
+			// Write the Map object
+            objectOut.writeObject(pins);
+            objectOut.close();
+
+			// Store successful
+			result = true;
+ 
+        }
+
+		catch (Exception ex) {
+			// Store unsuccessful
+            result = false;
+        }
+
+		return result;
+	}
+
+	public Object loadPins() {
+		try {
+			// Create necessary file objects
+            FileInputStream fileIn = new FileInputStream(filePath);
+            ObjectInputStream objectIn = new ObjectInputStream(fileIn);
+ 
+			// Read the object
+            Object obj = objectIn.readObject();
+ 
+			// Close and return
+            objectIn.close();
+            return obj;
+ 
+        } 
+		catch (Exception ex) {
+			// Load unsuccessful, return null
+            ex.printStackTrace();
+            return null;
+        }
+
+		
+	}
+	
+	// Temporary function to create the 1st map to be stored
+	public Map<Integer, Integer[]> makeMap() {
+		Map<Integer, Integer[]> map = new HashMap<>();
+		Integer[] vals = new Integer[] {1, 1111, 2222, 3333, 4444};
+
+		for (int i = 27; i < 59; i++) {
+			map.put(i, vals);
+		}
+
+		return map;
+	}
+
+	@SuppressWarnings("unchecked")
 	public static void main(String[] args) {
-		Pin pin_test = new Pin();
+		Pin pin_test = new Pin(27);
 
-		System.out.println(pin_test.verifyUser());
+		Map<Integer, Integer[]> test = (Map<Integer, Integer[]>) pin_test.loadPins();
 
-		// Testing that next pin is selected
-		int next_pin = pin_test.getNextPin(1111, 28);
+		System.out.println(pin_test.getPin());
 
-		// Should print "2222"
-		System.out.println(next_pin);
 	}
 }

@@ -102,6 +102,7 @@ public class UserInterface{
 		RemoveButton.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) { 
 					System.out.println("Remove Button");
+					openRemoveFrame();
 			} 
 		} );
 		
@@ -264,6 +265,66 @@ public class UserInterface{
 		ViewFrame.add(InfoForm, BorderLayout.SOUTH);
 		ViewFrame.add(tableForm, BorderLayout.CENTER);
 		ViewFrame.setVisible(true);
+		
+		
+	
+	}
+	
+	private void openRemoveFrame() {
+		JFrame RemoveFrame = new JFrame("Remove a Rental");
+		RemoveFrame.setIconImage(icon);
+		RemoveFrame.setLayout(new BorderLayout());
+		RemoveFrame.setSize(550,450); 
+	
+		
+		RenterTableModel model = new RenterTableModel(AppManager.Renters);
+		JTable renters = new JTable(model);
+		renters.setShowGrid(false);
+		renters.setShowHorizontalLines(false);
+		renters.setShowVerticalLines(false);
+		renters.setRowMargin(0);
+		renters.setIntercellSpacing(new Dimension(0, 0));
+		renters.setFillsViewportHeight(true);
+		TableRowSorter<RenterTableModel> sorter = new TableRowSorter<>(model);
+		renters.setRowSorter(sorter);
+		
+		//Info section
+		JPanel RemoveForm = new JPanel();
+		RemoveForm.setLayout(new GridLayout(0,2,5,5));
+		RemoveForm.setBorder(BorderFactory.createEmptyBorder(25,25,25,25));
+		RemoveForm.add(new JLabel(""));
+		JButton RemoveButton = new JButton("Remove");
+		RemoveButton.addActionListener(new ActionListener() { 
+			public void actionPerformed(ActionEvent e) { 
+					System.out.println(model.getRenterAt(renters.getSelectedRow()));
+			} 
+		} );
+
+		RemoveButton.setBackground(new Color(255,138, 138));
+		RemoveForm.add(RemoveButton);
+		
+
+
+		
+		
+		JPanel tableForm = new JPanel();
+		tableForm.setLayout(new BorderLayout());
+		tableForm.setBorder(BorderFactory.createEmptyBorder(25,25,25,25));
+		tableForm.add(new JScrollPane(renters));
+		tableForm.add(renters.getTableHeader(), BorderLayout.NORTH);
+		tableForm.add(renters, BorderLayout.CENTER);
+		
+		//Title information
+		JLabel RemoveFrameTitle = new JLabel("Click a record, then click remove.");
+		RemoveFrameTitle.setFont(new Font(Font.DIALOG, Font.BOLD, 18));
+		RemoveFrameTitle.setBorder(BorderFactory.createEmptyBorder(20,5,5,5));
+		RemoveFrameTitle.setHorizontalAlignment(JLabel.CENTER);
+		RemoveFrameTitle.setVerticalAlignment(JLabel.CENTER);
+		
+		RemoveFrame.add(RemoveFrameTitle,BorderLayout.NORTH );
+		RemoveFrame.add(RemoveForm, BorderLayout.SOUTH);
+		RemoveFrame.add(tableForm, BorderLayout.CENTER);
+		RemoveFrame.setVisible(true);
 		
 		
 	

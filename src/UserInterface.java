@@ -8,8 +8,13 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableRowSorter;
+
 import java.time.LocalDateTime;  
-import java.time.format.DateTimeFormatter;  
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;  
+
 
 public class UserInterface{
 	//Thematic colors
@@ -24,6 +29,7 @@ public class UserInterface{
 	
 	//Home screen Panel
 	JPanel HomeScreen =  new JPanel();
+	
 	
 	public UserInterface() throws IOException {
 		
@@ -118,7 +124,7 @@ public class UserInterface{
 		JFrame AddFrame = new JFrame("Add a Rental");
 		AddFrame.setIconImage(icon);
 		AddFrame.setLayout(new BorderLayout());
-		AddFrame.setSize(550,450);//900 width and 700 height    
+		AddFrame.setSize(550,450);//550 width and 450 height    
 		
 		
 		//Add Fields
@@ -206,9 +212,62 @@ public class UserInterface{
 
 	
 	private void openViewFrame() {
+		JFrame ViewFrame = new JFrame("View Rentals");
+		ViewFrame.setIconImage(icon);
+		ViewFrame.setLayout(new BorderLayout());
+		ViewFrame.setSize(550,450); 
+	
 		
+		RenterTableModel model = new RenterTableModel(AppManager.Renters);
+		JTable renters = new JTable(model);
+		renters.setShowGrid(false);
+		renters.setShowHorizontalLines(false);
+		renters.setShowVerticalLines(false);
+		renters.setRowMargin(0);
+		renters.setIntercellSpacing(new Dimension(0, 0));
+		renters.setFillsViewportHeight(true);
+		TableRowSorter<RenterTableModel> sorter = new TableRowSorter<>(model);
+		renters.setRowSorter(sorter);
+		
+		//Info section
+		JPanel InfoForm = new JPanel();
+		InfoForm.setLayout(new GridLayout(0,2,5,5));
+		InfoForm.setBorder(BorderFactory.createEmptyBorder(25,25,25,25));
+		InfoForm.add(new JLabel(""));
+		JButton MoreInfoButton = new JButton("More Info");
+		MoreInfoButton.addActionListener(new ActionListener() { 
+			public void actionPerformed(ActionEvent e) { 
+					System.out.println(model.getRenterAt(renters.getSelectedRow()));
+			} 
+		} );
+
+		InfoForm.add(MoreInfoButton);
+
+
+		
+		
+		JPanel tableForm = new JPanel();
+		tableForm.setLayout(new BorderLayout());
+		tableForm.setBorder(BorderFactory.createEmptyBorder(25,25,25,25));
+		tableForm.add(new JScrollPane(renters));
+		tableForm.add(renters.getTableHeader(), BorderLayout.NORTH);
+		tableForm.add(renters, BorderLayout.CENTER);
+		
+		//Title information
+		JLabel ViewFrameTitle = new JLabel("Click a record for more information.");
+		ViewFrameTitle.setFont(new Font(Font.DIALOG, Font.BOLD, 18));
+		ViewFrameTitle.setBorder(BorderFactory.createEmptyBorder(20,5,5,5));
+		ViewFrameTitle.setHorizontalAlignment(JLabel.CENTER);
+		ViewFrameTitle.setVerticalAlignment(JLabel.CENTER);
+		
+		ViewFrame.add(ViewFrameTitle,BorderLayout.NORTH );
+		ViewFrame.add(InfoForm, BorderLayout.SOUTH);
+		ViewFrame.add(tableForm, BorderLayout.CENTER);
+		ViewFrame.setVisible(true);
+		
+		
+	
 	}
 	
-
-
 }
+

@@ -14,7 +14,7 @@ import java.io.ObjectOutputStream;
 
 public class AppManager {
 	public ArrayList<Locker> Lockers;
-	private ArrayList<Renter> Renters;
+	public static ArrayList<Renter> Renters;
 	private int rentalNumberCount;
 	
 		
@@ -43,6 +43,7 @@ public class AppManager {
 	public void addRenter(Renter r) {
 		Renters.add(r);
 	}
+	
 	
 	public Locker checkOutLocker() {
 		for (Locker l : Lockers) {

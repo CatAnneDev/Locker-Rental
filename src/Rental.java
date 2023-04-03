@@ -33,7 +33,7 @@ public class Rental {
 		checkout_date = d;
 	}
 
-	public String getMonth ()
+	public String getDate ()
 	{
 		return checkout_date;
 	}
@@ -56,5 +56,9 @@ public class Rental {
 	public Renter getRenter ()
 	{
 		return renter;
+	}
+	public Locker getLocker ()
+	{
+		return locker;
 	}
 }

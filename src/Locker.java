@@ -18,7 +18,7 @@ class Locker
     {
         locker_number = l_number;
     }
-    public int geTLockerNumber()
+    public int getLockerNumber()
     {
         return locker_number;
     }

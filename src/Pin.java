@@ -26,61 +26,94 @@ public class Pin {
 	 * @param locker_id
 	 */
 	public Pin(int locker_id) {
+		// Set locker id
 		this.id = locker_id;
 	}
 	
 	/**
 	 * Gets respective pin from pin file
-	 * @return The curret pin of the locker
+	 * @return The curret pin of the locker, or -1 if failure occurred
 	 */
 	@SuppressWarnings("unchecked")
 	public int getPin() {
-		// Load the pins
-		Map<Integer, Integer[]> pin_map = (Map<Integer, Integer[]>) loadPins();
+		try {
+			// Load the pins
+			Map<Integer, Integer[]> pin_map = (Map<Integer, Integer[]>) loadPins();
 
-		// Get index of currently selected pin
-		int index = pin_map.get(this.id)[0];
+			// Get index of currently selected pin
+			int index = pin_map.get(this.id)[0];
 
-		// Return pin
-		return pin_map.get(this.id)[index];
+			// Return pin
+			return pin_map.get(this.id)[index];
+		}
+
+		// Catches file not found exception
+		catch (FileNotFoundException ex) {
+			// Display error message
+			JOptionPane.showMessageDialog(null, "The pin file was not found");
+		}
+		
+		// Map class not found in java environment
+		catch (ClassNotFoundException ex) {
+			// Display error message
+			JOptionPane.showMessageDialog(null, "A Java error occurred");
+		}
+
+		// Catches input/output exception
+		catch (IOException ex) {
+			// Display error message
+			JOptionPane.showMessageDialog(null, "An error occurred when loading the pins");
+		}
+
+		// Return fail value
+		return -1;
 	}
 
-	public int getNextPin(int current_pin, int locker_id) {
+	/**
+	 * Increments to the next pin in available pin list
+	 */
+	@SuppressWarnings("unchecked")
+	public void setNextPin() {
+		try {
+			// Load the pins
+			Map<Integer, Integer[]> pin_map = (Map<Integer, Integer[]>) loadPins();
 
-		verifyUser();
-
-		/* 
-		// Load list of available pins for the specific locker
-		Integer[] available_pins = temp_pins.get(locker_id);
-		// Used to track index
-		int current_index = 0;
-
-		// While the current pin now found
-		while (available_pins[current_index] != current_pin) {
-			// Next pin
-			current_index++;
+			// If the current pin is the last in the list
+			if (pin_map.get(this.id)[0] == 4) {
+				// Loop back to beginning of the list
+				pin_map.get(this.id)[0] = 1;
+			}
+			// Otherwise
+			else {
+				// Increment current pin to the next in the list
+				pin_map.get(this.id)[0] += 1;
+			}
 		}
 
-		// If the last pin is the current one
-		if (current_index == 3) {
-			// Loop back to beginning of list
-			return available_pins[0];
+		// Catches file not found exception
+		catch (FileNotFoundException ex) {
+			// Display error message
+			JOptionPane.showMessageDialog(null, "The pin file was not found");
 		}
-		// Otherwise
-		else {
-			// Return the next pin in the list
-			return available_pins[current_index + 1];
-		}
-		*/
 
-		return 0;
+		// Map class not found in java environment
+		catch (ClassNotFoundException ex) {
+			// Display error message
+			JOptionPane.showMessageDialog(null, "A Java error occurred");
+		}
+
+		// Catches input/output exception
+		catch (IOException ex) {
+			// Display error message
+			JOptionPane.showMessageDialog(null, "An error occurred when storing the pins");
+		}
 	}
 
 	/**
 	 * Verifies the user's ability to access the pins
 	 * @return Boolean result of the verification
 	 */
-	public static boolean verifyUser() {
+	private boolean verifyUser() {
 		boolean result = false;
 
 		// Allow user to input password
@@ -99,53 +132,31 @@ public class Pin {
 	 * Saves pin map object to the pin file
 	 * @param pins Map containing pins
 	 */
-	public void storePins(Map<Integer, Integer[]> pins) {
-		try {
-			// Create necessary file objects
-            FileOutputStream fileOut = new FileOutputStream(filePath);
-            ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
+	public void storePins(Map<Integer, Integer[]> pins) throws FileNotFoundException, IOException{
+		// Create necessary file objects
+		FileOutputStream fileOut = new FileOutputStream(filePath);
+		ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
 
-			// Write the Map object and close
-            objectOut.writeObject(pins);
-            objectOut.close(); 
-        }
-
-		// Catches file not found exception
-		catch (FileNotFoundException ex) {
-			// Display error message
-			JOptionPane.showMessageDialog(null, "The pin file was not found");
-        }
-
-		// Catches input/output exception
-		catch (IOException ex) {
-			// Display error message
-			JOptionPane.showMessageDialog(null, "An error occurred when storing the pins");
-		}
+		// Write the Map object and close
+		objectOut.writeObject(pins);
+		objectOut.close(); 
 	}
 
 	/**
 	 * Loads pin map from pin file
 	 * @return Pin map object
 	 */
-	public Object loadPins() {
-		try {
-			// Create necessary file objects
-            FileInputStream fileIn = new FileInputStream(filePath);
-            ObjectInputStream objectIn = new ObjectInputStream(fileIn);
- 
-			// Read the object
-            Object obj = objectIn.readObject();
- 
-			// Close and return
-            objectIn.close();
-            return obj;
- 
-        } 
-		catch (Exception ex) {
-			// Load unsuccessful, return null
-            ex.printStackTrace();
-            return null;
-        }
+	public Object loadPins() throws FileNotFoundException, ClassNotFoundException, IOException{
+		// Create necessary file objects
+		FileInputStream fileIn = new FileInputStream(filePath);
+		ObjectInputStream objectIn = new ObjectInputStream(fileIn);
+
+		// Read the object
+		Object obj = objectIn.readObject();
+
+		// Close and return
+		objectIn.close();
+		return obj;
 	}
 	
 
@@ -167,8 +178,6 @@ public class Pin {
 	@SuppressWarnings("unchecked")
 	public static void main(String[] args) {
 		Pin pin_test = new Pin(27);
-
-		Map<Integer, Integer[]> test = (Map<Integer, Integer[]>) pin_test.loadPins();
 
 		System.out.println(pin_test.getPin());
 

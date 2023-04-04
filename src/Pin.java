@@ -1,6 +1,8 @@
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
@@ -10,32 +12,37 @@ import javax.swing.JOptionPane;
 
 public class Pin {
 	
+	// Locker id #
 	int id;
 
+	// Password for pin access
 	String password = "pass";
 
+	// Path to pin file
 	String filePath = "..\\assets\\pins\\dummy_pins.json";
 	
-	
+	/**
+	 * Pin class constructor
+	 * @param locker_id
+	 */
 	public Pin(int locker_id) {
 		this.id = locker_id;
 	}
 	
+	/**
+	 * Gets respective pin from pin file
+	 * @return The curret pin of the locker
+	 */
 	@SuppressWarnings("unchecked")
 	public int getPin() {
-		// Verify the user
-		if (verifyUser()) {
-			// Load the pins
-			Map<Integer, Integer[]> pin_map = (Map<Integer, Integer[]>) loadPins();
+		// Load the pins
+		Map<Integer, Integer[]> pin_map = (Map<Integer, Integer[]>) loadPins();
 
-			// Return current set pin
-			int index = pin_map.get(this.id)[0];
-			return pin_map.get(this.id)[index];
-		}
-		else {
-			// User not verified, return fail value
-			return -1;
-		}
+		// Get index of currently selected pin
+		int index = pin_map.get(this.id)[0];
+
+		// Return pin
+		return pin_map.get(this.id)[index];
 	}
 
 	public int getNextPin(int current_pin, int locker_id) {
@@ -73,7 +80,7 @@ public class Pin {
 	 * Verifies the user's ability to access the pins
 	 * @return Boolean result of the verification
 	 */
-	private boolean verifyUser() {
+	public static boolean verifyUser() {
 		boolean result = false;
 
 		// Allow user to input password
@@ -88,32 +95,38 @@ public class Pin {
 		return result;
 	}
 
-	public boolean storePins(Map<Integer, Integer[]> pins) {
-		// Result of operation
-		boolean result;
-
+	/**
+	 * Saves pin map object to the pin file
+	 * @param pins Map containing pins
+	 */
+	public void storePins(Map<Integer, Integer[]> pins) {
 		try {
 			// Create necessary file objects
             FileOutputStream fileOut = new FileOutputStream(filePath);
             ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
 
-			// Write the Map object
+			// Write the Map object and close
             objectOut.writeObject(pins);
-            objectOut.close();
-
-			// Store successful
-			result = true;
- 
+            objectOut.close(); 
         }
 
-		catch (Exception ex) {
-			// Store unsuccessful
-            result = false;
+		// Catches file not found exception
+		catch (FileNotFoundException ex) {
+			// Display error message
+			JOptionPane.showMessageDialog(null, "The pin file was not found");
         }
 
-		return result;
+		// Catches input/output exception
+		catch (IOException ex) {
+			// Display error message
+			JOptionPane.showMessageDialog(null, "An error occurred when storing the pins");
+		}
 	}
 
+	/**
+	 * Loads pin map from pin file
+	 * @return Pin map object
+	 */
 	public Object loadPins() {
 		try {
 			// Create necessary file objects
@@ -133,10 +146,12 @@ public class Pin {
             ex.printStackTrace();
             return null;
         }
-
-		
 	}
 	
+
+
+
+
 	// Temporary function to create the 1st map to be stored
 	public Map<Integer, Integer[]> makeMap() {
 		Map<Integer, Integer[]> map = new HashMap<>();

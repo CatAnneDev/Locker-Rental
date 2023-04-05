@@ -26,7 +26,7 @@ public class DummyMain
 			System.out.println(l);
 		}
 		
-		UserInterface Ui = new UserInterface();
+		UserInterface Ui = new UserInterface(Manager);
 
 	}
 	

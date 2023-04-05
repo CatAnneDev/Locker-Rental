@@ -29,12 +29,14 @@ public class UserInterface{
 	
 	//Home screen Panel
 	JPanel HomeScreen =  new JPanel();
+	AppManager manager;
 	
 	
-	public UserInterface() throws IOException {
+	public UserInterface(AppManager m) throws IOException {
 		
 		setUpMainFrame();
 		setUpHomeScreen();
+		manager = m;
 		
 		
 		MainFrame.add(HomeScreen, BorderLayout.CENTER);
@@ -153,11 +155,15 @@ public class UserInterface{
 		JLabel SpringLabel = new JLabel("Spring");
 		JRadioButton FallButton = new JRadioButton();
 		JLabel FallLabel = new JLabel("    Fall");
+		ButtonGroup radioButtons = new ButtonGroup();
+		radioButtons.add(FallButton);
+		radioButtons.add(SpringButton);
 		RadioButtonPanel.setLayout(new GridLayout(0,4,5,5));
 		RadioButtonPanel.add(SpringLabel);
 		RadioButtonPanel.add(SpringButton);
 		RadioButtonPanel.add(FallLabel);
 		RadioButtonPanel.add(FallButton);
+		
 		
 		//Addform Components
 		AddForm.add(NameLabel);
@@ -197,8 +203,31 @@ public class UserInterface{
 		JButton SubmitButton = new JButton("Submit");
 		SubmitButton.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) { 
-					System.out.println("Submit Button");
-			} 
+				
+					String name = NameArea.getText();
+					String email = EmailArea.getText();
+					String phone = PhoneArea.getText();
+					String date = DateArea.getText();
+					String term = "temp";
+					
+					if (FallButton.isSelected() == true) {
+						term = "fall";
+					}
+					if (SpringButton.isSelected() == true) {
+						term = "spring";
+					}
+					
+					if (name.equals("Enter Name here.") || email.equals( "Enter Email here.") || phone.equals( "Enter Phone here.")) {
+						JOptionPane.showMessageDialog(AddFrame, "Please Enter Record Information.", "Input Warning", JOptionPane.ERROR_MESSAGE);
+					}
+					else {
+						Renter newRenter = new Renter(name, email, phone, term, manager);
+						System.out.println("Record Created!");
+						JOptionPane.showMessageDialog(AddFrame, "Record added", "Success!", JOptionPane.INFORMATION_MESSAGE);
+						AddFrame.setVisible(false);
+					}
+					
+			}
 		} );
 		SubmitForm.add(SubmitButton);
 		

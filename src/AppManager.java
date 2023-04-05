@@ -40,6 +40,16 @@ public class AppManager {
 		
 	}
 	
+	public boolean removeRenter(Renter r) {
+		try {
+			Renters.remove(r);
+			return true;
+		}
+		catch(Exception e1){
+			return false;
+		}
+	}
+	
 	public void addRenter(Renter r) {
 		Renters.add(r);
 	}

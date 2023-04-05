@@ -203,7 +203,8 @@ public class UserInterface{
 		JButton SubmitButton = new JButton("Submit");
 		SubmitButton.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) { 
-				
+					//System.out.println("Submit Button");
+			
 					String name = NameArea.getText();
 					String email = EmailArea.getText();
 					String phone = PhoneArea.getText();
@@ -267,7 +268,32 @@ public class UserInterface{
 		JButton MoreInfoButton = new JButton("More Info");
 		MoreInfoButton.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) { 
-					System.out.println(model.getRenterAt(renters.getSelectedRow()));
+					try {
+						Renter temp = model.getRenterAt(renters.getSelectedRow());
+						Rental rental = temp.getRental();
+						Locker locker = rental.getLocker();
+
+						JOptionPane.showMessageDialog(ViewFrame, 
+								"Name:   " + temp.getRenterName() + "\n"
+								+ "Email:   " + temp.getRenterEmail() + "\n"
+								+ "Phone:   " + temp.getPhoneNumber() + "\n"
+								+ "CheckOut Date:   " + rental.getDate() + "\n"
+								+ "Rental term:   " + rental.getTerm() + "\n"
+								+ "Locker Number:   " + locker.getLockerNumber() + "\n"
+								+ "Locker Pin:   " + locker.getLockerPin().getPin() + "\n"
+								, "Record Information  ", JOptionPane.INFORMATION_MESSAGE);
+					
+					}
+					catch (Exception e1) {
+						JOptionPane.showMessageDialog(ViewFrame, "Please select a record", "Selection Warning", JOptionPane.ERROR_MESSAGE);
+					}
+					
+						
+						
+					
+					
+
+					
 			} 
 		} );
 
@@ -325,7 +351,27 @@ public class UserInterface{
 		JButton RemoveButton = new JButton("Remove");
 		RemoveButton.addActionListener(new ActionListener() { 
 			public void actionPerformed(ActionEvent e) { 
-					System.out.println(model.getRenterAt(renters.getSelectedRow()));
+				try {
+					Renter temp = model.getRenterAt(renters.getSelectedRow());
+					
+					int a=JOptionPane.showConfirmDialog(RemoveFrame,"This action will remove a record permanately. \n Are you sure?");  
+					if(a==JOptionPane.YES_OPTION) {
+						
+						boolean flag = manager.removeRenter(temp);
+						if (flag == true) {
+							JOptionPane.showMessageDialog(RemoveFrame, "Record removed", "Success!", JOptionPane.INFORMATION_MESSAGE);
+							RemoveFrame.setVisible(false);
+						}
+						else {
+							JOptionPane.showMessageDialog(RemoveFrame, "Record removal failed", "Removal Warning", JOptionPane.ERROR_MESSAGE);
+						}
+					}
+					
+					
+				}
+				catch (Exception e1) {
+					JOptionPane.showMessageDialog(RemoveFrame, "Please select a record", "Selection Warning", JOptionPane.ERROR_MESSAGE);
+				}
 			} 
 		} );
 
@@ -359,5 +405,6 @@ public class UserInterface{
 	
 	}
 	
+
 }
 

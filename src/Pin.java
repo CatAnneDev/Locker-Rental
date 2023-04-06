@@ -88,6 +88,9 @@ public class Pin {
 				// Increment current pin to the next in the list
 				pin_map.get(this.id)[0] += 1;
 			}
+
+			// Store updated pin
+			storePins(pin_map);
 		}
 
 		// Catches file not found exception
@@ -113,11 +116,12 @@ public class Pin {
 	 * Verifies the user's ability to access the pins
 	 * @return Boolean result of the verification
 	 */
-	private boolean verifyUser() {
+	public boolean verifyUser() {
 		boolean result = false;
 
 		// Allow user to input password
-		String entry = JOptionPane.showInputDialog(null, "Please enter the pin password");
+		String entry = JOptionPane.showInputDialog(null, "Please enter the pin password",
+												   "Enter Password", JOptionPane.INFORMATION_MESSAGE);
 
 		// If the user entry is equivalent to the password
 		if (entry != null && entry.equals(password)) {
@@ -132,7 +136,7 @@ public class Pin {
 	 * Saves pin map object to the pin file
 	 * @param pins Map containing pins
 	 */
-	public void storePins(Map<Integer, Integer[]> pins) throws FileNotFoundException, IOException{
+	private void storePins(Map<Integer, Integer[]> pins) throws FileNotFoundException, IOException{
 		// Create necessary file objects
 		FileOutputStream fileOut = new FileOutputStream(filePath);
 		ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
@@ -146,7 +150,7 @@ public class Pin {
 	 * Loads pin map from pin file
 	 * @return Pin map object
 	 */
-	public Object loadPins() throws FileNotFoundException, ClassNotFoundException, IOException{
+	private Object loadPins() throws FileNotFoundException, ClassNotFoundException, IOException{
 		// Create necessary file objects
 		FileInputStream fileIn = new FileInputStream(filePath);
 		ObjectInputStream objectIn = new ObjectInputStream(fileIn);
@@ -157,29 +161,5 @@ public class Pin {
 		// Close and return
 		objectIn.close();
 		return obj;
-	}
-	
-
-
-
-
-	// Temporary function to create the 1st map to be stored
-	public Map<Integer, Integer[]> makeMap() {
-		Map<Integer, Integer[]> map = new HashMap<>();
-		Integer[] vals = new Integer[] {1, 1111, 2222, 3333, 4444};
-
-		for (int i = 27; i < 59; i++) {
-			map.put(i, vals);
-		}
-
-		return map;
-	}
-
-	@SuppressWarnings("unchecked")
-	public static void main(String[] args) {
-		Pin pin_test = new Pin(27);
-
-		System.out.println(pin_test.getPin());
-
 	}
 }

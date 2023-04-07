@@ -7,15 +7,17 @@ public class Renter
     private String renterEmail;
     private String phoneNumber;
 
-    private ArrayList<Rental> Rentals;
+    private Rental Rental;
+    private AppManager app;
 
-    public Renter(String name, String email, String number, ArrayList<Rental> rentals)
+    public Renter(String name, String email, String number, String term, AppManager a)
     {
         renterName = name;
         renterEmail = email;
         phoneNumber = number;
-        Rentals = rentals;
-
+        Rental = new Rental(term, this, a); 
+        app = a;
+        a.addRenter(this);
     }
 
     public String getRenterName()
@@ -33,9 +35,9 @@ public class Renter
         return phoneNumber;
     }
 
-    public ArrayList<Rental> getRentals()
+    public Rental getRental()
     {
-        return Rentals;
+        return Rental;
     }
 
     public void setRenterName(String renterName)
@@ -53,8 +55,14 @@ public class Renter
         this.phoneNumber = phoneNumber;
     }
 
-    public void setRentals(ArrayList<Rental> Rentals)
+    public void setRental(Rental Rental)
     {
-        this.Rentals = Rentals;
+        this.Rental = Rental;
     }
+    
+    @Override
+    public String toString() {
+        return renterName + ":      " + Rental.getLocker().getLockerNumber();
+    }
+    
 }

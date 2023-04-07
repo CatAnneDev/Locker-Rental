@@ -9,7 +9,7 @@ public class Locker
 	  {
     	locker_number = lockNum;
     	rental_status = false;
-    	locker_pin = new Pin();
+    	locker_pin = new Pin(locker_number);
     	app = a;
   
 	  }

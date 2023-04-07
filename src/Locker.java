@@ -1,4 +1,4 @@
-class Locker
+public class Locker
 {
     public int locker_number;
     public boolean rental_status;
@@ -6,13 +6,14 @@ class Locker
     AppManager app;
 
     public Locker (int lockNum, AppManager a)
-	{
+	  {
     	locker_number = lockNum;
     	rental_status = false;
     	locker_pin = new Pin();
     	app = a;
   
-	}
+	  }
+
 
     public void setLockerNumber(int l_number)
     {

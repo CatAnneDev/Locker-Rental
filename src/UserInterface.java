@@ -3,17 +3,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableRowSorter;
 
-import java.time.LocalDateTime;  
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;  
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 
 
 public class UserInterface{
@@ -137,12 +134,78 @@ public class UserInterface{
 		
 		JLabel NameLabel = new JLabel("Name: ");
 		JTextField NameArea = new JTextField("Enter Name here.");
+
+		// Add Focus Listener so field is made empty when clicked on
+		NameArea.addFocusListener(new FocusListener()
+		{
+			@Override
+			public void focusGained(FocusEvent e)
+			{
+				if (NameArea.getText().equals("Enter Name here.")) {
+					NameArea.setText("");
+				}
+			}
+
+			@Override
+			public void focusLost(FocusEvent e)
+			{
+				if (NameArea.getText().isEmpty())
+				{
+					NameArea.setText("Enter Name here.");
+				}
+			}
+		});
+
 		
 		JLabel EmailLabel = new JLabel("Email: ");
 		JTextField EmailArea = new JTextField("Enter Email here.");
+
+		// Add Focus Listener so field is made empty when clicked on
+		EmailArea.addFocusListener(new FocusListener()
+		{
+			@Override
+			public void focusGained(FocusEvent e)
+			{
+				if (EmailArea.getText().equals("Enter Email here."))
+				{
+					EmailArea.setText("");
+				}
+			}
+
+			@Override
+			public void focusLost(FocusEvent e)
+			{
+				if (EmailArea.getText().isEmpty())
+				{
+					EmailArea.setText("Enter Email here.");
+				}
+			}
+		});
 		
 		JLabel PhoneLabel = new JLabel("Phone: ");
 		JTextField PhoneArea = new JTextField("Enter Phone here.");
+
+		// Add Focus Listener so field is made empty when clicked on
+		PhoneArea.addFocusListener(new FocusListener()
+		{
+			@Override
+			public void focusGained(FocusEvent e)
+			{
+				if (PhoneArea.getText().equals("Enter Phone here."))
+				{
+					PhoneArea.setText("");
+				}
+			}
+
+			@Override
+			public void focusLost(FocusEvent e)
+			{
+				if (PhoneArea.getText().isEmpty())
+				{
+					PhoneArea.setText("Enter Phone here.");
+				}
+			}
+		});
 		
 		JLabel DateLabel = new JLabel("Date: ");
 		JTextField DateArea = new JTextField(java.time.LocalDate.now().toString());
@@ -163,9 +226,10 @@ public class UserInterface{
 		RadioButtonPanel.add(SpringButton);
 		RadioButtonPanel.add(FallLabel);
 		RadioButtonPanel.add(FallButton);
+
 		
 		
-		//Addform Components
+		//Add form Components
 		AddForm.add(NameLabel);
 		AddForm.add(NameArea);
 		
@@ -180,28 +244,28 @@ public class UserInterface{
 		
 		AddForm.add(TermLabel);
 		AddForm.add(RadioButtonPanel);
-		
-		
-		
-		
+
+
+
 		//Title information
 		JLabel AddFrameTitle = new JLabel("Add a Rental");
 		AddFrameTitle.setFont(new Font(Font.DIALOG, Font.BOLD, 18));
 		AddFrameTitle.setBorder(BorderFactory.createEmptyBorder(20,5,5,5));
 		AddFrameTitle.setHorizontalAlignment(JLabel.CENTER);
 		AddFrameTitle.setVerticalAlignment(JLabel.CENTER);
-		
-		
-		
-		
+
+
+
 		//Submit section
 		JPanel SubmitForm = new JPanel();
 		SubmitForm.setLayout(new GridLayout(0,2,5,5));
 		SubmitForm.setBorder(BorderFactory.createEmptyBorder(25,25,25,25));
 		SubmitForm.add(new JLabel(""));
+
 		
 		JButton SubmitButton = new JButton("Submit");
-		SubmitButton.addActionListener(new ActionListener() { 
+
+		SubmitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) { 
 					//System.out.println("Submit Button");
 			
@@ -231,14 +295,16 @@ public class UserInterface{
 			}
 		} );
 		SubmitForm.add(SubmitButton);
-		
-		
-		
-		
+
 		AddFrame.add(SubmitForm, BorderLayout.SOUTH);
 		AddFrame.add(AddFrameTitle, BorderLayout.NORTH);
 		AddFrame.add(AddForm, BorderLayout.CENTER);
+
 		AddFrame.setVisible(true);
+
+		// set focus to submit button so that the default enter
+		// name text is not empty when the add frame is opened
+		SubmitButton.requestFocusInWindow();
 	}
 
 	

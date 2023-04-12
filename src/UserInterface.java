@@ -404,7 +404,7 @@ public class UserInterface{
 					panel.add(new JLabel("Term:"));
 					panel.add(SemesterArea);
 
-					int result = JOptionPane.showConfirmDialog(ViewFrame, panel, "Update Renter Information",
+					int result = JOptionPane.showConfirmDialog(ViewFrame, panel, "Edit Renter Information",
 							JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
 					if (result == JOptionPane.OK_OPTION)

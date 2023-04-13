@@ -45,7 +45,7 @@ public class Renter
         this.renterName = renterName;
     }
 
-    public void setRenterEmail(String renterName)
+    public void setRenterEmail(String renterEmail)
     {
         this.renterEmail = renterEmail;
     }

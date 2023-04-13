@@ -13,6 +13,7 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 
 
+
 public class UserInterface{
 	//Thematic colors
 	Color MainBackground = new Color(206, 206, 206);
@@ -330,9 +331,11 @@ public class UserInterface{
 		JPanel InfoForm = new JPanel();
 		InfoForm.setLayout(new GridLayout(0,2,5,5));
 		InfoForm.setBorder(BorderFactory.createEmptyBorder(25,25,25,25));
-		InfoForm.add(new JLabel(""));
+		//InfoForm.add(new JLabel(""));
 		JButton MoreInfoButton = new JButton("More Info");
-		MoreInfoButton.addActionListener(new ActionListener() { 
+		JButton EditInfoButton = new JButton("Edit Info");
+
+		MoreInfoButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) { 
 					try {
 						Renter temp = model.getRenterAt(renters.getSelectedRow());
@@ -350,21 +353,96 @@ public class UserInterface{
 								, "Record Information  ", JOptionPane.INFORMATION_MESSAGE);
 					
 					}
-					catch (Exception e1) {
+					catch (Exception e1)
+					{
 						JOptionPane.showMessageDialog(ViewFrame, "Please select a record", "Selection Warning", JOptionPane.ERROR_MESSAGE);
 					}
-					
-						
-						
-					
-					
 
-					
 			} 
 		} );
 
-		InfoForm.add(MoreInfoButton);
+		EditInfoButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				try
+				{
+					Renter temp = model.getRenterAt(renters.getSelectedRow());
+					Rental rental = temp.getRental();
+					Locker locker = rental.getLocker();
 
+					JPanel panel = new JPanel();
+
+					panel.setLayout(new GridLayout(0, 2, 3, 5));
+
+
+					JTextField NameArea = new JTextField(temp.getRenterName());
+					panel.add(new JLabel("Name:"));
+					panel.add(NameArea);
+
+					JTextField EmailArea = new JTextField(temp.getRenterEmail());
+					panel.add(new JLabel("Email:"));
+					panel.add(EmailArea);
+
+					JTextField PhoneArea = new JTextField(temp.getPhoneNumber());
+					panel.add(new JLabel("Phone:"));
+					panel.add(PhoneArea);
+
+					String[] semesters = {"spring","fall"};
+					JComboBox SemesterArea = new JComboBox(semesters);
+
+					SemesterArea.setSelectedItem(rental.getTerm());
+
+					SemesterArea.addActionListener(new ActionListener()
+					{
+						public void actionPerformed(ActionEvent e)
+					{
+						rental.setTerm(SemesterArea.getSelectedItem().toString());
+					}
+					});
+
+					panel.add(new JLabel("Term:"));
+					panel.add(SemesterArea);
+
+					int result = JOptionPane.showConfirmDialog(ViewFrame, panel, "Edit Renter Information",
+							JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+
+
+					if (result == JOptionPane.OK_OPTION)
+					{
+						if (NameArea.getText().equals("") || EmailArea.getText().equals("")
+								|| PhoneArea.getText().equals(""))
+						{
+							JOptionPane.showMessageDialog(ViewFrame, "Please Do Not Leave Record Information Blank.",
+									"Input Warning", JOptionPane.ERROR_MESSAGE);
+						}
+						else
+						{
+							model.getRenterAt(renters.getSelectedRow()).setRenterName(NameArea.getText());
+							model.getRenterAt(renters.getSelectedRow()).setRenterEmail(EmailArea.getText());
+							model.getRenterAt(renters.getSelectedRow()).setRenterPhone(PhoneArea.getText());
+							model.getRenterAt(renters.getSelectedRow()).setRental(rental);
+
+							model.fireTableDataChanged();
+
+							JOptionPane.showMessageDialog(ViewFrame, "Record Has Been Updated!",
+									"Record Updated", JOptionPane.INFORMATION_MESSAGE);
+						}
+
+					}
+
+				}
+				catch (Exception e1)
+				{
+					JOptionPane.showMessageDialog(ViewFrame, "Please select a record to edit",
+							"Selection Warning", JOptionPane.ERROR_MESSAGE);
+				}
+
+			}
+		} );
+
+		InfoForm.add(MoreInfoButton);
+		InfoForm.add(EditInfoButton);
 
 		
 		

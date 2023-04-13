@@ -407,14 +407,27 @@ public class UserInterface{
 					int result = JOptionPane.showConfirmDialog(ViewFrame, panel, "Edit Renter Information",
 							JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
+
 					if (result == JOptionPane.OK_OPTION)
 					{
-						model.getRenterAt(renters.getSelectedRow()).setRenterName(NameArea.getText());
-						model.getRenterAt(renters.getSelectedRow()).setRenterEmail(EmailArea.getText());
-						model.getRenterAt(renters.getSelectedRow()).setRenterPhone(PhoneArea.getText());
-						model.getRenterAt(renters.getSelectedRow()).setRental(rental);
+						if (NameArea.getText().equals("") || EmailArea.getText().equals("")
+								|| PhoneArea.getText().equals(""))
+						{
+							JOptionPane.showMessageDialog(ViewFrame, "Please Do Not Leave Record Information Blank.",
+									"Input Warning", JOptionPane.ERROR_MESSAGE);
+						}
+						else
+						{
+							model.getRenterAt(renters.getSelectedRow()).setRenterName(NameArea.getText());
+							model.getRenterAt(renters.getSelectedRow()).setRenterEmail(EmailArea.getText());
+							model.getRenterAt(renters.getSelectedRow()).setRenterPhone(PhoneArea.getText());
+							model.getRenterAt(renters.getSelectedRow()).setRental(rental);
 
-						model.fireTableDataChanged();
+							model.fireTableDataChanged();
+
+							JOptionPane.showMessageDialog(ViewFrame, "Record Has Been Updated!",
+									"Record Updated", JOptionPane.INFORMATION_MESSAGE);
+						}
 
 					}
 

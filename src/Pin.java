@@ -6,9 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.HashMap;
 import java.util.Map;
-
 import javax.swing.JOptionPane;
 
 public class Pin {
@@ -16,11 +14,8 @@ public class Pin {
 	// Locker id #
 	int id;
 
-	// Password for pin access
-	String password = "pass";
-
 	// Path to pin file
-	String filePath = "..\\assets\\pins\\dummy_pins.json";
+	String filePath = "assets/Pins/dummy_pins.json";
 	
 	/**
 	 * Pin class constructor
@@ -87,7 +82,8 @@ public class Pin {
 			// Otherwise
 			else {
 				// Increment current pin to the next in the list
-				pin_map.get(this.id)[0] += 1;
+				Integer[] pin_list = pin_map.get(this.id);
+				pin_list[0] += 1;
 			}
 
 			// Store updated pin
@@ -111,26 +107,6 @@ public class Pin {
 			// Display error message
 			JOptionPane.showMessageDialog(null, "An error occurred when storing the pins");
 		}
-	}
-
-	/**
-	 * Verifies the user's ability to access the pins
-	 * @return Boolean result of the verification
-	 */
-	public boolean verifyUser() {
-		boolean result = false;
-
-		// Allow user to input password
-		String entry = JOptionPane.showInputDialog(null, "Please enter the pin password",
-												   "Enter Password", JOptionPane.INFORMATION_MESSAGE);
-
-		// If the user entry is equivalent to the password
-		if (entry != null && entry.equals(password)) {
-			// Give user access
-			result = true;
-		}
-
-		return result;
 	}
 
 	/**

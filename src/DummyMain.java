@@ -4,9 +4,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 
 public class DummyMain
 {
+	private static String password = "pass";
+
 	public static void main(String[] args) throws IOException, ClassNotFoundException
 	{
 		
@@ -25,9 +29,37 @@ public class DummyMain
 		for (Locker l : Manager.Lockers) {
 			System.out.println(l);
 		}
-		
-		UserInterface Ui = new UserInterface(Manager);
 
+		if (verifyUser()) {
+			UserInterface Ui = new UserInterface(Manager);
+		}
+		else {
+			JOptionPane.showMessageDialog(null, "Password Incorrect\nExiting",
+										  "ERROR", JOptionPane.WARNING_MESSAGE);
+		}
+	}
+
+	/**
+	 * Verifies the user's ability to access the pins
+	 * @return Boolean result of the verification
+	 */
+	public static boolean verifyUser() {
+		boolean result = false;
+
+		JPasswordField pass_field = new JPasswordField(20);
+
+		// Allow user to input password
+		int entry = JOptionPane.showConfirmDialog(null, pass_field, "Please enter the pin password",
+												  JOptionPane.OK_CANCEL_OPTION);
+
+		if (entry < 0) {
+			// User canceled, exit process
+			return false;
+		}
+		else {
+			String entered_password = new String(pass_field.getPassword());
+			return entered_password.equals(password);
+		}
 	}
 	
 	private static AppManager readFromFile() throws IOException, ClassNotFoundException {

@@ -66,6 +66,53 @@ public class Pin {
 	}
 
 	/**
+	 * Gets the previously selected pin
+	 * @return Previous pin
+	 */
+	@SuppressWarnings("unchecked")
+	public int getPreviousPin() {
+		try {
+			// Load the pins
+			Map<Integer, Integer[]> pin_map = (Map<Integer, Integer[]>) loadPins();
+
+			// Get current pin index
+			int current_index = pin_map.get(this.id)[0];
+
+			// If the current index is greater than one
+			if (current_index > 1) {
+				// Return the previous pin
+				return pin_map.get(this.id)[current_index - 1];
+			}
+			
+			// Otherwise, the index is 1
+			// Return the last pin in the list
+			return pin_map.get(this.id)[4];
+		}
+
+		// Catches file not found exception
+		catch (FileNotFoundException ex) {
+			// Display error message
+			JOptionPane.showMessageDialog(null, "The pin file was not found");
+		}
+
+		// Map class not found in java environment
+		catch (ClassNotFoundException ex) {
+			// Display error message
+			JOptionPane.showMessageDialog(null, "A Java error occurred");
+		}
+
+		// Catches input/output exception
+		catch (IOException ex) {
+			// Display error message
+			JOptionPane.showMessageDialog(null, "An error occurred when storing the pins");
+		}
+
+		// Return fail value
+		return -1;
+	}
+
+
+	/**
 	 * Increments to the next pin in available pin list
 	 */
 	@SuppressWarnings("unchecked")

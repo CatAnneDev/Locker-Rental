@@ -29,7 +29,9 @@ public class UserInterface{
 	JPanel HomeScreen =  new JPanel();
 	AppManager manager;
 	
-	
+	/**
+	 * User interface constructor, sets up each relevant frame
+	 */
 	public UserInterface(AppManager m) throws IOException {
 		
 		setUpMainFrame();
@@ -43,6 +45,9 @@ public class UserInterface{
 		
 	}
 	
+	/**
+	 * Sets up the main frame display
+	 */
 	private void setUpMainFrame() {
 		MainFrame.setIconImage(icon);
 		MainFrame.setLayout(new BorderLayout());
@@ -50,6 +55,9 @@ public class UserInterface{
 		MainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);    
 	}
 	
+	/**
+	 * Sets up the home screen display
+	 */
 	private void setUpHomeScreen() throws IOException {
 		
 		//Making the first visible Screen
@@ -121,6 +129,9 @@ public class UserInterface{
 		HomeScreen.add(RentalOptions, BorderLayout.EAST);
 	}
 	
+	/**
+	 * Opens the add rental frame for user entry
+	 */
 	private void openAddFrame() {
 		JFrame AddFrame = new JFrame("Add a Rental");
 		AddFrame.setIconImage(icon);
@@ -308,7 +319,9 @@ public class UserInterface{
 		SubmitButton.requestFocusInWindow();
 	}
 
-	
+	/**
+	 * Opens the view rental frame
+	 */
 	private void openViewFrame() {
 		JFrame ViewFrame = new JFrame("View Rentals");
 		ViewFrame.setIconImage(icon);
@@ -469,6 +482,9 @@ public class UserInterface{
 	
 	}
 	
+	/**
+	 * Opens the remove rental frame
+	 */
 	private void openRemoveFrame() {
 		JFrame RemoveFrame = new JFrame("Remove a Rental");
 		RemoveFrame.setIconImage(icon);

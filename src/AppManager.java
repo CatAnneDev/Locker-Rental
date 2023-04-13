@@ -42,6 +42,7 @@ public class AppManager {
 	
 	public boolean removeRenter(Renter r) {
 		try {
+			returnLocker(r.getRental().getLocker());
 			Renters.remove(r);
 			return true;
 		}
@@ -67,6 +68,11 @@ public class AppManager {
 		return null;
 	}
 	
+	
+	public void returnLocker(Locker l) {
+		l.getLockerPin().setNextPin();
+		l.setRentalStatus(false);
+	}
 	
 	private boolean writeToFile() throws IOException {
 		File file = new File("assets/AppData/objects.txt");

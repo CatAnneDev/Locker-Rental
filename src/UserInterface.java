@@ -522,9 +522,12 @@ public class UserInterface{
 					int a=JOptionPane.showConfirmDialog(RemoveFrame,"This action will remove a record permanately. \n Are you sure?");  
 					if(a==JOptionPane.YES_OPTION) {
 						
+						int old_pin = temp.getRental().getLocker().locker_pin.getPin();
 						boolean flag = manager.removeRenter(temp);
+						int new_pin = temp.getRental().getLocker().locker_pin.getPin();
 						if (flag == true) {
-							JOptionPane.showMessageDialog(RemoveFrame, "Record removed", "Success!", JOptionPane.INFORMATION_MESSAGE);
+							JOptionPane.showMessageDialog(RemoveFrame, "Record removed\n\nCHANGE LOCKER PIN NOW\nOld Pin: " + old_pin + "\nNew Pin: " + new_pin + "\nReference the 'Change Locker pdf' to change the pin", 
+														  "Success!", JOptionPane.INFORMATION_MESSAGE);
 							RemoveFrame.setVisible(false);
 						}
 						else {

@@ -291,10 +291,10 @@ public class UserInterface{
 					String term = "temp";
 					
 					if (FallButton.isSelected() == true) {
-						term = "fall";
+						term = "Fall";
 					}
 					if (SpringButton.isSelected() == true) {
-						term = "spring";
+						term = "Spring";
 					}
 					
 					if (name.equals("Enter Name/Org here.") || email.equals( "Enter Email here.") || phone.equals( "Enter Phone here.")) {

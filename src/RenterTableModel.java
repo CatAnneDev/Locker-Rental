@@ -8,7 +8,8 @@ public class RenterTableModel extends AbstractTableModel {
     protected static final String[] COLUMN_NAMES = {
         "Name/Org",
         "Checkout Date",
-        "Locker Number"
+        "Locker Number",
+        "Locker Term"
     };
 
     private List<Renter> rowData;
@@ -58,6 +59,9 @@ public class RenterTableModel extends AbstractTableModel {
                 break;
             case 2:
                 value = r.getRental().getLocker().getLockerNumber();
+                break;
+            case 3:
+                value = r.getRental().getTerm();
                 break;
         }
         return value;

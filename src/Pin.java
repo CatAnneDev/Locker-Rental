@@ -15,6 +15,7 @@ public class Pin {
 	int id;
 
 	// Path to pin file
+	//String filePath = "..\\assets\\Pins\\dummy_pins.json";
 	String filePath = "assets/Pins/dummy_pins.json";
 	
 	/**

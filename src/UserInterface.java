@@ -22,8 +22,9 @@ public class UserInterface{
 			
 			
 	//Main Screen Componets
-	JFrame MainFrame=new JFrame("Locker Rental");//creating instance of JFrame  
-	Image icon = Toolkit.getDefaultToolkit().getImage("assets/Images/icon.png");  
+	JFrame MainFrame=new JFrame("Locker Rental");//creating instance of JFrame
+	//Image icon = Toolkit.getDefaultToolkit().getImage("..\\assets\\Images\\icon.png"); 
+	Image icon = Toolkit.getDefaultToolkit().getImage("assets/Images/icon.png"); 
 	
 	//Home screen Panel
 	JPanel HomeScreen =  new JPanel();
@@ -72,6 +73,7 @@ public class UserInterface{
 		JPanel TitlePane = new JPanel();
 		HomeScreen.setLayout(new BorderLayout());
 		//getting the logo
+		//BufferedImage LockerLogo = ImageIO.read(new File("..\\assets\\Images\\image3.png"));
 		BufferedImage LockerLogo = ImageIO.read(new File("assets/Images/image3.png"));
 		JLabel Logo = new JLabel(new ImageIcon(LockerLogo.getScaledInstance(360, 125, Image.SCALE_SMOOTH)));
 		TitlePane.add(Logo, BorderLayout.WEST);

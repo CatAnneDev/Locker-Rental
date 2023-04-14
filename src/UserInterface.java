@@ -40,6 +40,7 @@ public class UserInterface{
 		
 		
 		MainFrame.add(HomeScreen, BorderLayout.CENTER);
+		MainFrame.setLocationRelativeTo(null);
 		MainFrame.setVisible(true);
 		
 		
@@ -144,8 +145,8 @@ public class UserInterface{
 		AddForm.setLayout(new GridLayout(0,2,35,35));
 		AddForm.setBorder(BorderFactory.createEmptyBorder(25,25,25,25));
 		
-		JLabel NameLabel = new JLabel("Name: ");
-		JTextField NameArea = new JTextField("Enter Name here.");
+		JLabel NameLabel = new JLabel("Name / Organization: ");
+		JTextField NameArea = new JTextField("Enter Name/Org here.");
 
 		// Add Focus Listener so field is made empty when clicked on
 		NameArea.addFocusListener(new FocusListener()
@@ -153,7 +154,7 @@ public class UserInterface{
 			@Override
 			public void focusGained(FocusEvent e)
 			{
-				if (NameArea.getText().equals("Enter Name here.")) {
+				if (NameArea.getText().equals("Enter Name/Org here.")) {
 					NameArea.setText("");
 				}
 			}
@@ -163,7 +164,7 @@ public class UserInterface{
 			{
 				if (NameArea.getText().isEmpty())
 				{
-					NameArea.setText("Enter Name here.");
+					NameArea.setText("Enter Name/Org here.");
 				}
 			}
 		});
@@ -312,6 +313,7 @@ public class UserInterface{
 		AddFrame.add(AddFrameTitle, BorderLayout.NORTH);
 		AddFrame.add(AddForm, BorderLayout.CENTER);
 
+		AddFrame.setLocationRelativeTo(null);
 		AddFrame.setVisible(true);
 
 		// set focus to submit button so that the default enter
@@ -476,6 +478,7 @@ public class UserInterface{
 		ViewFrame.add(ViewFrameTitle,BorderLayout.NORTH );
 		ViewFrame.add(InfoForm, BorderLayout.SOUTH);
 		ViewFrame.add(tableForm, BorderLayout.CENTER);
+		ViewFrame.setLocationRelativeTo(null);
 		ViewFrame.setVisible(true);
 		
 		
@@ -559,6 +562,7 @@ public class UserInterface{
 		RemoveFrame.add(RemoveFrameTitle,BorderLayout.NORTH );
 		RemoveFrame.add(RemoveForm, BorderLayout.SOUTH);
 		RemoveFrame.add(tableForm, BorderLayout.CENTER);
+		RemoveFrame.setLocationRelativeTo(null);
 		RemoveFrame.setVisible(true);
 		
 		

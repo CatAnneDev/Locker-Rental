@@ -6,7 +6,7 @@ import javax.swing.table.AbstractTableModel;
 public class RenterTableModel extends AbstractTableModel {
 
     protected static final String[] COLUMN_NAMES = {
-        "Name",
+        "Name/Org",
         "Checkout Date",
         "Locker Number"
     };

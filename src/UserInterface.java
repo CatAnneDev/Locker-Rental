@@ -297,7 +297,7 @@ public class UserInterface{
 						term = "spring";
 					}
 					
-					if (name.equals("Enter Name here.") || email.equals( "Enter Email here.") || phone.equals( "Enter Phone here.")) {
+					if (name.equals("Enter Name/Org here.") || email.equals( "Enter Email here.") || phone.equals( "Enter Phone here.")) {
 						JOptionPane.showMessageDialog(AddFrame, "Please Enter Record Information.", "Input Warning", JOptionPane.ERROR_MESSAGE);
 					}
 					else {
@@ -360,7 +360,7 @@ public class UserInterface{
 						Locker locker = rental.getLocker();
 
 						JOptionPane.showMessageDialog(ViewFrame, 
-								"Name:   " + temp.getRenterName() + "\n"
+								"Name/Org:   " + temp.getRenterName() + "\n"
 								+ "Email:   " + temp.getRenterEmail() + "\n"
 								+ "Phone:   " + temp.getPhoneNumber() + "\n"
 								+ "CheckOut Date:   " + rental.getDate() + "\n"
@@ -394,7 +394,7 @@ public class UserInterface{
 
 
 					JTextField NameArea = new JTextField(temp.getRenterName());
-					panel.add(new JLabel("Name:"));
+					panel.add(new JLabel("Name/Org:"));
 					panel.add(NameArea);
 
 					JTextField EmailArea = new JTextField(temp.getRenterEmail());

@@ -320,6 +320,12 @@ public class UserInterface{
 					}
 					else {
 						Renter newRenter = new Renter(name, email, phone, term, manager, Integer.parseInt((String) LockerArea.getSelectedItem()));
+						try {
+							manager.writeToFile();
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 						System.out.println("Record Created!");
 						JOptionPane.showMessageDialog(AddFrame, "Record added", "Success!", JOptionPane.INFORMATION_MESSAGE);
 						AddFrame.setVisible(false);
@@ -459,7 +465,12 @@ public class UserInterface{
 							model.getRenterAt(renters.getSelectedRow()).setRental(rental);
 
 							model.fireTableDataChanged();
-
+							try {
+								manager.writeToFile();
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
 							JOptionPane.showMessageDialog(ViewFrame, "Record Has Been Updated!",
 									"Record Updated", JOptionPane.INFORMATION_MESSAGE);
 						}
@@ -542,6 +553,12 @@ public class UserInterface{
 						
 						int old_pin = temp.getRental().getLocker().locker_pin.getPin();
 						boolean flag = manager.removeRenter(temp);
+						try {
+							manager.writeToFile();
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 						int new_pin = temp.getRental().getLocker().locker_pin.getPin();
 						if (flag == true) {
 							JOptionPane.showMessageDialog(RemoveFrame, "Record removed\n\nCHANGE LOCKER PIN NOW\nOld Pin: " + old_pin + "\nNew Pin: " + new_pin + "\nReference the 'Change Locker pdf' to change the pin", 

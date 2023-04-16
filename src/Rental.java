@@ -1,6 +1,11 @@
+import java.io.Serializable;
 import java.util.Date;
 
-public class Rental {
+public class Rental implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 697222621650877997L;
 	private int rental_num;
 	private String checkout_date;
 	private String term;

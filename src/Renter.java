@@ -1,9 +1,14 @@
+import java.io.Serializable;
 import java.lang.String;
 import java.util.ArrayList;
 
-public class Renter
+public class Renter implements Serializable
 {
-    private String renterName;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6324905091512711653L;
+	private String renterName;
     private String renterEmail;
     private String phoneNumber;
 

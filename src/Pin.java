@@ -6,11 +6,18 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.Map;
 import javax.swing.JOptionPane;
 
-public class Pin {
+public class Pin implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3161078618907619929L;
+
+
 	// Locker id #
 	int id;
 

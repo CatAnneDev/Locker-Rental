@@ -4,6 +4,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.Map;
+
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 
@@ -14,7 +17,7 @@ public class DummyMain
 	public static void main(String[] args) throws IOException, ClassNotFoundException
 	{
 		
-		AppManager Manager = new AppManager(readFromFile());
+		AppManager Manager = readFromFile();
 		// classes: Renter, Locker, Rental, Pin, User Interface
 		Renter x = new Renter("Karch","kta3235@truman.edu","6365942334","spring", Manager, 27);
 		Renter y = new Renter("Bert","brt4235@truman.edu","6368273849","fall", Manager,28);
@@ -62,15 +65,19 @@ public class DummyMain
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	private static AppManager readFromFile() throws IOException, ClassNotFoundException {
-		File file = new File("assets/AppData/objects.txt");
+		File file = new File("assets/AppData/objects.json");
 	
 		
 		//if the file is not empty
 		if( !(file.length()==0) ) {
 			FileInputStream f = new FileInputStream(file);
 			ObjectInputStream o = new ObjectInputStream(f);
-			AppManager app = (AppManager) o.readObject();
+			ArrayList<Locker> lock = (ArrayList<Locker>) o.readObject();
+			ArrayList<Renter> rent = (ArrayList<Renter>) o.readObject();
+			int rentalNum = (Integer) o.readObject();
+			AppManager app = new AppManager(lock,rent,rentalNum);
 			o.close();
 			f.close();
 			return app;

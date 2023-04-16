@@ -54,7 +54,7 @@ public class UserInterface{
 	private void setUpMainFrame() {
 		MainFrame.setIconImage(icon);
 		MainFrame.setLayout(new BorderLayout());
-		MainFrame.setSize(900,700);//900 width and 700 height  
+		MainFrame.setSize(700,600);//900 width and 700 height  
 		MainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);    
 	}
 	
@@ -65,7 +65,7 @@ public class UserInterface{
 		
 		//Making the first visible Screen
 		HomeScreen.setLayout(new BorderLayout());
-		HomeScreen.setBackground(MainBackground);
+		//HomeScreen.setBackground(MainBackground);
 		
 		
 		
@@ -126,11 +126,57 @@ public class UserInterface{
 		RentalOptions.add(Box.createRigidArea(new Dimension(0, 75)));
 		RentalOptions.add(RemoveButton);
 		
+		//Set up side card
+		JPanel HelpOptions = new JPanel();
+		HelpOptions.setLayout(new BoxLayout(HelpOptions, BoxLayout.Y_AXIS));
+		HelpOptions.setPreferredSize(new Dimension(300, 100));
 		
+		JButton PinButton = new JButton("How to change lock pin");
+		PinButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+		PinButton.setMaximumSize(new Dimension(225,50));
+		PinButton.addActionListener(new ActionListener() { 
+			public void actionPerformed(ActionEvent e) { 
+					System.out.println("Pin Button");
+					if (Desktop.isDesktopSupported()) {
+					    try {
+					        File myFile = new File("assets/Documents/PinChange.pdf");
+					        Desktop.getDesktop().open(myFile);
+					    } catch (IOException ex) {
+					        // no application registered for PDFs
+					    }
+					}
+			} 
+		} );
+		
+		JButton ManuelButton = new JButton("Open Manuel");
+		ManuelButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+		ManuelButton.setMaximumSize(new Dimension(175,50));
+		ManuelButton.addActionListener(new ActionListener() { 
+			public void actionPerformed(ActionEvent e) { 
+					System.out.println("Manuel Button");
+					if (Desktop.isDesktopSupported()) {
+					    try {
+					        File myFile = new File("assets/Documents/Manuel.pdf");
+					        Desktop.getDesktop().open(myFile);
+					    } catch (IOException ex) {
+					        // no application registered for PDFs
+					    }
+					};
+			} 
+		} );
+		
+		
+		//Add the componets and spacing
+		HelpOptions.add(Box.createRigidArea(new Dimension(0, 125)));
+		HelpOptions.add(Box.createRigidArea(new Dimension(0, 75)));
+		HelpOptions.add(PinButton);
+		HelpOptions.add(Box.createRigidArea(new Dimension(0, 75)));
+		HelpOptions.add(ManuelButton);
 		
 		
 		HomeScreen.add(TitlePane, BorderLayout.NORTH);
 		HomeScreen.add(RentalOptions, BorderLayout.EAST);
+		HomeScreen.add(HelpOptions, BorderLayout.WEST);
 	}
 	
 	/**

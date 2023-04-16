@@ -68,6 +68,7 @@ public class DummyMain
 	@SuppressWarnings("unchecked")
 	private static AppManager readFromFile() throws IOException, ClassNotFoundException {
 		File file = new File("assets/AppData/objects.json");
+		//File file = new File("..assets\\AppData\\objects.json");
 	
 		
 		//if the file is not empty

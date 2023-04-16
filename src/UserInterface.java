@@ -139,6 +139,7 @@ public class UserInterface{
 					System.out.println("Pin Button");
 					if (Desktop.isDesktopSupported()) {
 					    try {
+							//File myFile = new File("..\\assets\\Documents\\PinChange.pdf");
 					        File myFile = new File("assets/Documents/PinChange.pdf");
 					        Desktop.getDesktop().open(myFile);
 					    } catch (IOException ex) {
@@ -156,7 +157,8 @@ public class UserInterface{
 					System.out.println("Manual Button");
 					if (Desktop.isDesktopSupported()) {
 					    try {
-					        File myFile = new File("assets/Documents/Manual.pdf");
+							//File myFile = new File("..\\assets\\Documents\\Manuel.pdf");
+					        File myFile = new File("assets/Documents/Manuel.pdf");
 					        Desktop.getDesktop().open(myFile);
 					    } catch (IOException ex) {
 					        // no application registered for PDFs

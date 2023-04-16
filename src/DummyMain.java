@@ -16,10 +16,10 @@ public class DummyMain
 		
 		AppManager Manager = new AppManager(readFromFile());
 		// classes: Renter, Locker, Rental, Pin, User Interface
-		Renter x = new Renter("Karch","kta3235@truman.edu","6365942334","spring", Manager);
-		Renter y = new Renter("Bert","brt4235@truman.edu","6368273849","fall", Manager);
-		Renter z = new Renter("Carl","cmd3235@truman.edu","6363431245","spring", Manager);
-		Renter w = new Renter("Daryl","dae3235@truman.edu","6363425433","spring", Manager);
+		Renter x = new Renter("Karch","kta3235@truman.edu","6365942334","spring", Manager, 27);
+		Renter y = new Renter("Bert","brt4235@truman.edu","6368273849","fall", Manager,28);
+		Renter z = new Renter("Carl","cmd3235@truman.edu","6363431245","spring", Manager,29);
+		Renter w = new Renter("Daryl","dae3235@truman.edu","6363425433","spring", Manager,30);
 		
 		for (Renter r : Manager.Renters) {
 			System.out.println(r.getRenterName());

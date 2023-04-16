@@ -56,9 +56,9 @@ public class AppManager {
 	}
 	
 	
-	public Locker checkOutLocker() {
+	public Locker checkOutLocker(int lnum) {
 		for (Locker l : Lockers) {
-			if(l.rental_status == false) {
+			if(l.rental_status == false && l.getLockerNumber() == lnum) {
 				l.setRentalStatus(true);
 				return l;
 			}
@@ -73,6 +73,7 @@ public class AppManager {
 		l.getLockerPin().setNextPin();
 		l.setRentalStatus(false);
 	}
+	
 	
 	private boolean writeToFile() throws IOException {
 		File file = new File("assets/AppData/objects.txt");

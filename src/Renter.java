@@ -9,13 +9,12 @@ public class Renter
 
     private Rental Rental;
     private AppManager app;
-
-    public Renter(String name, String email, String number, String term, AppManager a)
+    public Renter(String name, String email, String number, String term, AppManager a, int lnum)
     {
         renterName = name;
         renterEmail = email;
         phoneNumber = number;
-        Rental = new Rental(term, this, a); 
+        Rental = new Rental(term, this, a, lnum); 
         app = a;
         a.addRenter(this);
     }

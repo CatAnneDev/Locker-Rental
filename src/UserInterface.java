@@ -4,6 +4,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -139,7 +140,7 @@ public class UserInterface{
 		JFrame AddFrame = new JFrame("Add a Rental");
 		AddFrame.setIconImage(icon);
 		AddFrame.setLayout(new BorderLayout());
-		AddFrame.setSize(550,450);//550 width and 450 height    
+		AddFrame.setSize(550,550);//550 width and 450 height    
 		
 		
 		//Add Fields
@@ -225,6 +226,20 @@ public class UserInterface{
 		JLabel DateLabel = new JLabel("Date: ");
 		JTextField DateArea = new JTextField(java.time.LocalDate.now().toString());
 		
+		JLabel LockerNumLabel = new JLabel("Locker Num: ");
+		ArrayList<String> LockerNums= new ArrayList<String>();
+		for (int i = 0; i < manager.Lockers.size(); i++) {
+			Locker l = manager.Lockers.get(i);
+			if(l.rental_status == false) {
+				LockerNums.add(String.valueOf(l.getLockerNumber()));
+			}
+		}
+			
+		JComboBox LockerArea = new JComboBox(LockerNums.toArray());
+
+		LockerArea.setSelectedItem(LockerNums.get(0));
+
+		
 		//Radio Button section
 		JLabel TermLabel = new JLabel("Rental Term: ");
 		JPanel RadioButtonPanel = new JPanel();
@@ -256,6 +271,9 @@ public class UserInterface{
 		
 		AddForm.add(DateLabel);
 		AddForm.add(DateArea);
+		
+		AddForm.add(LockerNumLabel);
+		AddForm.add(LockerArea);
 		
 		AddForm.add(TermLabel);
 		AddForm.add(RadioButtonPanel);
@@ -301,7 +319,7 @@ public class UserInterface{
 						JOptionPane.showMessageDialog(AddFrame, "Please Enter Record Information.", "Input Warning", JOptionPane.ERROR_MESSAGE);
 					}
 					else {
-						Renter newRenter = new Renter(name, email, phone, term, manager);
+						Renter newRenter = new Renter(name, email, phone, term, manager, Integer.parseInt((String) LockerArea.getSelectedItem()));
 						System.out.println("Record Created!");
 						JOptionPane.showMessageDialog(AddFrame, "Record added", "Success!", JOptionPane.INFORMATION_MESSAGE);
 						AddFrame.setVisible(false);

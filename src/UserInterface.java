@@ -326,7 +326,6 @@ public class UserInterface{
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
-
 						System.out.println("Record Created!");
 						JOptionPane.showMessageDialog(AddFrame, "Record added", "Success!", JOptionPane.INFORMATION_MESSAGE);
 						AddFrame.setVisible(false);

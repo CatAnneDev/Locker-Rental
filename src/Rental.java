@@ -8,14 +8,14 @@ public class Rental {
 	private Locker locker;
 	private AppManager app;
 	
-	public Rental (String t, Renter r, AppManager a)
+	public Rental (String t, Renter r, AppManager a, int lnum)
 	{
 		rental_num = 1;
 		checkout_date = java.time.LocalDate.now().toString();
 		term = t;
 		renter = r;
 		app = a;
-		locker = a.checkOutLocker();
+		locker = a.checkOutLocker(lnum);
 	}
 
 	public void setRentalNumber (int r_num)
@@ -61,4 +61,5 @@ public class Rental {
 	{
 		return locker;
 	}
+	
 }

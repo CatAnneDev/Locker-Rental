@@ -81,7 +81,7 @@ public class AppManager implements Serializable{
 		l.setRentalStatus(false);
 	}
 	
-	
+
 	public boolean writeToFile() throws IOException {
 		File file = new File("assets/AppData/objects.json");
 		FileOutputStream f = new FileOutputStream(file);

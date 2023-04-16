@@ -148,15 +148,15 @@ public class UserInterface{
 			} 
 		} );
 		
-		JButton ManuelButton = new JButton("Open Manuel");
-		ManuelButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-		ManuelButton.setMaximumSize(new Dimension(175,50));
-		ManuelButton.addActionListener(new ActionListener() { 
+		JButton ManualButton = new JButton("Open Manual");
+		ManualButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+		ManualButton.setMaximumSize(new Dimension(175,50));
+		ManualButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) { 
-					System.out.println("Manuel Button");
+					System.out.println("Manual Button");
 					if (Desktop.isDesktopSupported()) {
 					    try {
-					        File myFile = new File("assets/Documents/Manuel.pdf");
+					        File myFile = new File("assets/Documents/Manual.pdf");
 					        Desktop.getDesktop().open(myFile);
 					    } catch (IOException ex) {
 					        // no application registered for PDFs
@@ -171,7 +171,7 @@ public class UserInterface{
 		HelpOptions.add(Box.createRigidArea(new Dimension(0, 75)));
 		HelpOptions.add(PinButton);
 		HelpOptions.add(Box.createRigidArea(new Dimension(0, 75)));
-		HelpOptions.add(ManuelButton);
+		HelpOptions.add(ManualButton);
 		
 		
 		HomeScreen.add(TitlePane, BorderLayout.NORTH);

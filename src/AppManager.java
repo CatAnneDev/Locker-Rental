@@ -82,6 +82,7 @@ public class AppManager implements Serializable{
 	}
 	
 	
+
 	public boolean writeToFile() throws IOException {
 		File file = new File("assets/AppData/objects.json");
 		FileOutputStream f = new FileOutputStream(file);

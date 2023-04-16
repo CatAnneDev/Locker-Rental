@@ -98,7 +98,7 @@ public class UserInterface{
 			} 
 		} );
 		
-		JButton ViewButton = new JButton("View Rentals");
+		JButton ViewButton = new JButton("View/Edit Rentals");
 		ViewButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 		ViewButton.setMaximumSize(new Dimension(175,50));
 		ViewButton.addActionListener(new ActionListener() { 
@@ -326,6 +326,7 @@ public class UserInterface{
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
+
 						System.out.println("Record Created!");
 						JOptionPane.showMessageDialog(AddFrame, "Record added", "Success!", JOptionPane.INFORMATION_MESSAGE);
 						AddFrame.setVisible(false);
@@ -429,7 +430,7 @@ public class UserInterface{
 					panel.add(new JLabel("Phone:"));
 					panel.add(PhoneArea);
 
-					String[] semesters = {"spring","fall"};
+					String[] semesters = {"Spring","Fall"};
 					JComboBox SemesterArea = new JComboBox(semesters);
 
 					SemesterArea.setSelectedItem(rental.getTerm());
@@ -445,8 +446,11 @@ public class UserInterface{
 					panel.add(new JLabel("Term:"));
 					panel.add(SemesterArea);
 
-					int result = JOptionPane.showConfirmDialog(ViewFrame, panel, "Edit Renter Information",
-							JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+					int result = JOptionPane.showOptionDialog(ViewFrame, panel, "Edit Renter Information",
+							JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE,null,
+							new String[]{"Update","Next Pin","Cancel"},"default");
+
+
 
 
 					if (result == JOptionPane.OK_OPTION)
@@ -474,6 +478,19 @@ public class UserInterface{
 							JOptionPane.showMessageDialog(ViewFrame, "Record Has Been Updated!",
 									"Record Updated", JOptionPane.INFORMATION_MESSAGE);
 						}
+
+					}
+					else if (result == JOptionPane.NO_OPTION)
+					{
+						model.getRenterAt(renters.getSelectedRow()).getRental().getLocker().getLockerPin().setNextPin();
+
+						JOptionPane.showMessageDialog(ViewFrame,
+								"Locker Pin has been Changed!\n"
+										+ "Previous Pin: " + model.getRenterAt(renters.getSelectedRow()).getRental().
+										getLocker().getLockerPin().getPreviousPin() + "\n" + "New Pin: " +
+										model.getRenterAt(renters.getSelectedRow()).getRental().
+												getLocker().getLockerPin().getPin() + "\n"
+						);
 
 					}
 

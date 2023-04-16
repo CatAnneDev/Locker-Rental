@@ -12,16 +12,23 @@ import java.io.ObjectOutputStream;
 
 
 
-public class AppManager {
+public class AppManager implements Serializable{
+
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1742251814903682890L;
 	public ArrayList<Locker> Lockers;
 	public static ArrayList<Renter> Renters;
 	private int rentalNumberCount;
 	
 		
-	public AppManager(AppManager app){
-		this.Lockers = app.Lockers;
-		this.Renters = app.Renters;
-		this.rentalNumberCount = app.rentalNumberCount;
+	@SuppressWarnings("static-access")
+	public AppManager(ArrayList<Locker> L,ArrayList<Renter> R,int rentalNum){
+		this.Lockers = L;
+		this.Renters = R;
+		this.rentalNumberCount = rentalNum;
 	}
 	
 	public AppManager(){
@@ -75,15 +82,18 @@ public class AppManager {
 	}
 	
 	
-	private boolean writeToFile() throws IOException {
-		File file = new File("assets/AppData/objects.txt");
+
+	public boolean writeToFile() throws IOException {
+		File file = new File("assets/AppData/objects.json");
 		FileOutputStream f = new FileOutputStream(file);
 		ObjectOutputStream o = new ObjectOutputStream(f);
 		
-		//if the file is not empty
-		if( !(file.length()==0) ) {
-			o.writeObject(this);
-		}
+		
+		o.writeObject(Lockers);
+		o.writeObject(Renters);
+		o.writeObject(rentalNumberCount);
+		
+		
 		
 		
 		o.close();

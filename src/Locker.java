@@ -1,6 +1,12 @@
-public class Locker
+import java.io.Serializable;
+
+public class Locker implements Serializable
 {
-    public int locker_number;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7447550122819701472L;
+	public int locker_number;
     public boolean rental_status;
     Pin locker_pin;
     AppManager app;

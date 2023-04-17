@@ -413,6 +413,9 @@ public class UserInterface{
 		renters.setFillsViewportHeight(true);
 		TableRowSorter<RenterTableModel> sorter = new TableRowSorter<>(model);
 		renters.setRowSorter(sorter);
+
+		// default sort table based on Locker Number
+		renters.getRowSorter().toggleSortOrder(2);
 		
 		//Info section
 		JPanel InfoForm = new JPanel();
@@ -428,6 +431,7 @@ public class UserInterface{
 						Renter temp = model.getRenterAt(renters.getSelectedRow());
 						Rental rental = temp.getRental();
 						Locker locker = rental.getLocker();
+
 
 						JOptionPane.showMessageDialog(ViewFrame, 
 								"Name/Org:   " + temp.getRenterName() + "\n"
@@ -598,7 +602,11 @@ public class UserInterface{
 		renters.setFillsViewportHeight(true);
 		TableRowSorter<RenterTableModel> sorter = new TableRowSorter<>(model);
 		renters.setRowSorter(sorter);
-		
+
+		// default sort table based on Locker Number
+		renters.getRowSorter().toggleSortOrder(2);
+
+
 		//Info section
 		JPanel RemoveForm = new JPanel();
 		RemoveForm.setLayout(new GridLayout(0,2,5,5));

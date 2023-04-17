@@ -158,7 +158,7 @@ public class UserInterface{
 					if (Desktop.isDesktopSupported()) {
 					    try {
 							//File myFile = new File("..\\assets\\Documents\\Manuel.pdf");
-					        File myFile = new File("assets/Documents/Manuel.pdf");
+					        File myFile = new File("assets/Documents/Manual.pdf");
 					        Desktop.getDesktop().open(myFile);
 					    } catch (IOException ex) {
 					        // no application registered for PDFs

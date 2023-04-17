@@ -81,12 +81,9 @@ public class AppManager implements Serializable{
 		l.setRentalStatus(false);
 	}
 	
-<<<<<<< Upstream, based on branch 'main' of https://github.com/CatAnneDev/Locker-Rental.git
-
-=======
 	
->>>>>>> 9192f76 Got the data to save to a file correctly, reading is not working still
 	public boolean writeToFile() throws IOException {
+		//File file = new File("..\\assets\\AppData\\objects.json");
 		File file = new File("assets/AppData/objects.json");
 		FileOutputStream f = new FileOutputStream(file);
 		ObjectOutputStream o = new ObjectOutputStream(f);

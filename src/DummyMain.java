@@ -1,11 +1,8 @@
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.Map;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
@@ -16,19 +13,13 @@ public class DummyMain
 
 	public static void main(String[] args) throws IOException, ClassNotFoundException
 	{
-		
+
 		AppManager Manager = readFromFile();
-		// classes: Renter, Locker, Rental, Pin, User Interface
-		//Renter x = new Renter("Karch","kta3235@truman.edu","6365942334","spring", Manager, 27);
-		//Renter y = new Renter("Bert","brt4235@truman.edu","6368273849","fall", Manager,28);
-		//Renter z = new Renter("Carl","cmd3235@truman.edu","6363431245","spring", Manager,29);
-		//Renter w = new Renter("Daryl","dae3235@truman.edu","6363425433","spring", Manager,30);
 		
 		for (Renter r : Manager.Renters) {
 			System.out.println(r.getRenterName());
 		}
 
-		// System.out.println(x.getRenterEmail());
 		for (Locker l : Manager.Lockers) {
 			System.out.println(l);
 		}

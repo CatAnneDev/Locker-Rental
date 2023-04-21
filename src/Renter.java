@@ -1,6 +1,5 @@
 import java.io.Serializable;
 import java.lang.String;
-import java.util.ArrayList;
 
 public class Renter implements Serializable
 {

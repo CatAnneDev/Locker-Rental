@@ -86,11 +86,11 @@ public class UserInterface{
 		//Set up side card
 		JPanel RentalOptions = new JPanel();
 		RentalOptions.setLayout(new BoxLayout(RentalOptions, BoxLayout.Y_AXIS));
-		RentalOptions.setPreferredSize(new Dimension(200, 100));
+		RentalOptions.setPreferredSize(new Dimension(300, 100));
 
-		JButton AddButton = new JButton("Add a new Rental");
+		JButton AddButton = new JButton("Add a New Rental");
 		AddButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-		AddButton.setMaximumSize(new Dimension(175,50));
+		AddButton.setMaximumSize(new Dimension(225,50));
 		AddButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Add Button");
@@ -100,7 +100,7 @@ public class UserInterface{
 
 		JButton ViewButton = new JButton("View/Edit Rentals");
 		ViewButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-		ViewButton.setMaximumSize(new Dimension(175,50));
+		ViewButton.setMaximumSize(new Dimension(225,50));
 		ViewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("View Button");
@@ -110,7 +110,7 @@ public class UserInterface{
 
 		JButton RemoveButton  = new JButton("Remove a Rental");
 		RemoveButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-		RemoveButton.setMaximumSize(new Dimension(175,50));
+		RemoveButton.setMaximumSize(new Dimension(225,50));
 		RemoveButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Remove Button");
@@ -131,7 +131,7 @@ public class UserInterface{
 		HelpOptions.setLayout(new BoxLayout(HelpOptions, BoxLayout.Y_AXIS));
 		HelpOptions.setPreferredSize(new Dimension(300, 100));
 
-		JButton PinButton = new JButton("How to change lock pin");
+		JButton PinButton = new JButton("How to Change Locker Pin");
 		PinButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 		PinButton.setMaximumSize(new Dimension(225,50));
 		PinButton.addActionListener(new ActionListener() {
@@ -151,7 +151,7 @@ public class UserInterface{
 
 		JButton ManualButton = new JButton("Open Manual");
 		ManualButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-		ManualButton.setMaximumSize(new Dimension(175,50));
+		ManualButton.setMaximumSize(new Dimension(225,50));
 		ManualButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Manual Button");
@@ -169,16 +169,16 @@ public class UserInterface{
 
 
 		//Add the componets and spacing
-		HelpOptions.add(Box.createRigidArea(new Dimension(0, 125)));
 		HelpOptions.add(Box.createRigidArea(new Dimension(0, 75)));
 		HelpOptions.add(PinButton);
 		HelpOptions.add(Box.createRigidArea(new Dimension(0, 75)));
 		HelpOptions.add(ManualButton);
+		RentalOptions.add(Box.createRigidArea(new Dimension(0, 75)));
 
 
 		HomeScreen.add(TitlePane, BorderLayout.NORTH);
-		HomeScreen.add(RentalOptions, BorderLayout.EAST);
-		HomeScreen.add(HelpOptions, BorderLayout.WEST);
+		HomeScreen.add(RentalOptions, BorderLayout.WEST);
+		HomeScreen.add(HelpOptions, BorderLayout.EAST);
 	}
 
 	/**

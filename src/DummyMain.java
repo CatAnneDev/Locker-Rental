@@ -28,7 +28,7 @@ public class DummyMain
 			System.out.println(r.getRenterName());
 		}
 
-		System.out.println(x.getRenterEmail());
+		// System.out.println(x.getRenterEmail());
 		for (Locker l : Manager.Lockers) {
 			System.out.println(l);
 		}

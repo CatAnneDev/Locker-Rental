@@ -94,7 +94,20 @@ public class UserInterface{
 		AddButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Add Button");
-				openAddFrame();
+				boolean lockerAvailable = false;
+				for (Locker l : manager.Lockers) {
+					if (l.rental_status == false) {
+							
+						lockerAvailable = true;
+					}
+				}
+				if (lockerAvailable == false) {
+					JOptionPane.showMessageDialog(HomeScreen, "No available lockers", "Full Locker Warning", JOptionPane.ERROR_MESSAGE);
+						
+				}
+				else {
+					openAddFrame();
+				}
 			}
 		} );
 

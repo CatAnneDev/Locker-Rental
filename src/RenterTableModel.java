@@ -9,7 +9,7 @@ public class RenterTableModel extends AbstractTableModel {
         "Name/Org",
         "Checkout Date",
         "Locker Number",
-        "Locker Term"
+        "Rental Ends"
     };
 
     private List<Renter> rowData;

@@ -22,8 +22,9 @@ public class Pin implements Serializable {
 	int id;
 
 	// Path to pin file
+	String filePath = "..\\assets\\Pins\\encrypted_pins.json";
 	//String filePath = "..\\assets\\Pins\\dummy_pins.json";
-	String filePath = "assets/Pins/dummy_pins.json";
+	//String filePath = "assets/Pins/dummy_pins.json";
 	
 	/**
 	 * Pin class constructor
@@ -39,13 +40,13 @@ public class Pin implements Serializable {
 	 * @return The curret pin of the locker, or -1 if failure occurred
 	 */
 	@SuppressWarnings("unchecked")
-	public int getPin() {
+	public String getPin() {
 		try {
 			// Load the pins
-			Map<Integer, Integer[]> pin_map = (Map<Integer, Integer[]>) loadPins();
+			Map<Integer, String[]> pin_map = (Map<Integer, String[]>) loadPins();
 
 			// Get index of currently selected pin
-			int index = pin_map.get(this.id)[0];
+			int index = Integer.parseInt(pin_map.get(this.id)[0]);
 
 			// Return pin
 			return pin_map.get(this.id)[index];
@@ -70,7 +71,7 @@ public class Pin implements Serializable {
 		}
 
 		// Return fail value
-		return -1;
+		return "";
 	}
 
 	/**
@@ -78,13 +79,13 @@ public class Pin implements Serializable {
 	 * @return Previous pin
 	 */
 	@SuppressWarnings("unchecked")
-	public int getPreviousPin() {
+	public String getPreviousPin() {
 		try {
 			// Load the pins
-			Map<Integer, Integer[]> pin_map = (Map<Integer, Integer[]>) loadPins();
+			Map<Integer, String[]> pin_map = (Map<Integer, String[]>) loadPins();
 
 			// Get current pin index
-			int current_index = pin_map.get(this.id)[0];
+			int current_index = Integer.parseInt(pin_map.get(this.id)[0]);
 
 			// If the current index is greater than one
 			if (current_index > 1) {
@@ -94,7 +95,7 @@ public class Pin implements Serializable {
 			
 			// Otherwise, the index is 1
 			// Return the last pin in the list
-			return pin_map.get(this.id)[4];
+			return pin_map.get(this.id)[5];
 		}
 
 		// Catches file not found exception
@@ -116,7 +117,7 @@ public class Pin implements Serializable {
 		}
 
 		// Return fail value
-		return -1;
+		return "";
 	}
 
 
@@ -127,18 +128,21 @@ public class Pin implements Serializable {
 	public void setNextPin() {
 		try {
 			// Load the pins
-			Map<Integer, Integer[]> pin_map = (Map<Integer, Integer[]>) loadPins();
+			Map<Integer, String[]> pin_map = (Map<Integer, String[]>) loadPins();
 
 			// If the current pin is the last in the list
-			if (pin_map.get(this.id)[0] == 4) {
+			if (Integer.parseInt(pin_map.get(this.id)[0]) == 5) {
 				// Loop back to beginning of the list
-				pin_map.get(this.id)[0] = 1;
+				pin_map.get(this.id)[0] = "1";
 			}
 			// Otherwise
 			else {
 				// Increment current pin to the next in the list
-				Integer[] pin_list = pin_map.get(this.id);
-				pin_list[0] += 1;
+				String[] pin_list = pin_map.get(this.id);
+				int numb = Integer.parseInt(pin_list[0]);
+				numb++;
+
+				pin_map.get(this.id)[0] = Integer.toString(numb);
 			}
 
 			// Store updated pin
@@ -168,7 +172,7 @@ public class Pin implements Serializable {
 	 * Saves pin map object to the pin file
 	 * @param pins Map containing pins
 	 */
-	private void storePins(Map<Integer, Integer[]> pins) throws FileNotFoundException, IOException{
+	private void storePins(Map<Integer, String[]> pins) throws FileNotFoundException, IOException{
 		// Create necessary file objects
 		FileOutputStream fileOut = new FileOutputStream(filePath);
 		ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);

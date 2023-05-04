@@ -29,7 +29,7 @@ public class AppManager implements Serializable{
 		
 		Lockers = new ArrayList<Locker>();
 		Renters = new ArrayList<Renter>();
-		for(int i = 0; i <= 30; i++) {
+		for(int i = 0; i <= 31; i++) {
 			Locker temp = new Locker(i+27, this);
 			Lockers.add(temp);
 			//System.out.println(temp);
@@ -77,8 +77,8 @@ public class AppManager implements Serializable{
 	
 	
 	public boolean writeToFile() throws IOException {
-		//File file = new File("..\\assets\\AppData\\objects.json");
-		File file = new File("assets/AppData/objects.json");
+		File file = new File("..\\assets\\AppData\\objects.json");
+		//File file = new File("assets/AppData/objects.json");
 		FileOutputStream f = new FileOutputStream(file);
 		ObjectOutputStream o = new ObjectOutputStream(f);
 		

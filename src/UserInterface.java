@@ -24,8 +24,8 @@ public class UserInterface{
 
 	//Main Screen Componets
 	JFrame MainFrame=new JFrame("Locker Rental");//creating instance of JFrame
-	//Image icon = Toolkit.getDefaultToolkit().getImage("..\\assets\\Images\\icon.png"); 
-	Image icon = Toolkit.getDefaultToolkit().getImage("assets/Images/icon.png");
+	Image icon = Toolkit.getDefaultToolkit().getImage("..\\assets\\Images\\icon.png"); 
+	//Image icon = Toolkit.getDefaultToolkit().getImage("assets/Images/icon.png");
 
 	//Home screen Panel
 	JPanel HomeScreen =  new JPanel();
@@ -74,8 +74,8 @@ public class UserInterface{
 		JPanel TitlePane = new JPanel();
 		HomeScreen.setLayout(new BorderLayout());
 		//getting the logo
-		//BufferedImage LockerLogo = ImageIO.read(new File("..\\assets\\Images\\image3.png"));
-		BufferedImage LockerLogo = ImageIO.read(new File("assets/Images/image3.png"));
+		BufferedImage LockerLogo = ImageIO.read(new File("..\\assets\\Images\\image3.png"));
+		//BufferedImage LockerLogo = ImageIO.read(new File("assets/Images/image3.png"));
 		JLabel Logo = new JLabel(new ImageIcon(LockerLogo.getScaledInstance(360, 125, Image.SCALE_SMOOTH)));
 		TitlePane.add(Logo, BorderLayout.WEST);
 
@@ -152,8 +152,8 @@ public class UserInterface{
 				System.out.println("Pin Button");
 				if (Desktop.isDesktopSupported()) {
 					try {
-						//File myFile = new File("..\\assets\\Documents\\PinChange.pdf");
-						File myFile = new File("assets/Documents/PinChange.pdf");
+						File myFile = new File("..\\assets\\Documents\\PinChange.pdf");
+						//File myFile = new File("assets/Documents/PinChange.pdf");
 						Desktop.getDesktop().open(myFile);
 					} catch (IOException ex) {
 						// no application registered for PDFs
@@ -170,8 +170,8 @@ public class UserInterface{
 				System.out.println("Manual Button");
 				if (Desktop.isDesktopSupported()) {
 					try {
-						//File myFile = new File("..\\assets\\Documents\\Manuel.pdf");
-						File myFile = new File("assets/Documents/Manual.pdf");
+						File myFile = new File("..\\assets\\Documents\\Manual.pdf");
+						//File myFile = new File("assets/Documents/Manual.pdf");
 						Desktop.getDesktop().open(myFile);
 					} catch (IOException ex) {
 						// no application registered for PDFs
@@ -197,6 +197,7 @@ public class UserInterface{
 	/**
 	 * Opens the add rental frame for user entry
 	 */
+	@SuppressWarnings("unchecked")
 	private void openAddFrame() {
 		JFrame AddFrame = new JFrame("Add a Rental");
 		AddFrame.setIconImage(icon);
@@ -302,7 +303,7 @@ public class UserInterface{
 
 
 		//Radio Button section
-		JLabel TermLabel = new JLabel("Rental Term: ");
+		JLabel TermLabel = new JLabel("Ending Term: ");
 		JPanel RadioButtonPanel = new JPanel();
 
 		JRadioButton SpringButton = new JRadioButton();
@@ -317,6 +318,10 @@ public class UserInterface{
 		RadioButtonPanel.add(SpringButton);
 		RadioButtonPanel.add(FallLabel);
 		RadioButtonPanel.add(FallButton);
+
+
+		JLabel YearEndLabel = new JLabel("Ending Year: ");
+		JTextField EndYearArea = new JTextField(java.time.Year.now().toString());
 
 
 
@@ -338,6 +343,9 @@ public class UserInterface{
 
 		AddForm.add(TermLabel);
 		AddForm.add(RadioButtonPanel);
+
+		AddForm.add(YearEndLabel);
+		AddForm.add(EndYearArea);
 
 
 
@@ -368,16 +376,18 @@ public class UserInterface{
 				String phone = PhoneArea.getText();
 				String date = DateArea.getText();
 				String term = "temp";
+				String year = EndYearArea.getText();
 
 				if (FallButton.isSelected() == true) {
-					term = "Fall";
+					term = "Fall " + EndYearArea.getText();
 				}
 				if (SpringButton.isSelected() == true) {
-					term = "Spring";
+					term = "Spring " + EndYearArea.getText();
 				}
 
-				if (name.equals("Enter Name/Org here.") || email.equals( "Enter Email here.") || phone.equals( "Enter Phone here.")) {
-					JOptionPane.showMessageDialog(AddFrame, "Please Enter Record Information.", "Input Warning", JOptionPane.ERROR_MESSAGE);
+				if (name.equals("Enter Name/Org here.") || email.equals( "Enter Email here.") || phone.equals( "Enter Phone here.") || year.equals("")
+				    || (!FallButton.isSelected() && !SpringButton.isSelected())) {
+					JOptionPane.showMessageDialog(AddFrame, "Please Enter All Record Information.", "Input Warning", JOptionPane.ERROR_MESSAGE);
 				}
 				else {
 					Renter newRenter = new Renter(name, email, phone, term, manager, Integer.parseInt((String) LockerArea.getSelectedItem()));
@@ -452,7 +462,7 @@ public class UserInterface{
 							"Name/Org:   " + temp.getRenterName() + "\n"
 									+ "Email:   " + temp.getRenterEmail() + "\n"
 									+ "Phone:   " + temp.getPhoneNumber() + "\n"
-									+ "CheckOut Date:   " + rental.getDate() + "\n"
+									+ "Check Out Date:   " + rental.getDate() + "\n"
 									+ "Rental term:   " + rental.getTerm() + "\n"
 									+ "Locker Number:   " + locker.getLockerNumber() + "\n"
 									+ "Locker Pin:   " + locker.getLockerPin().getPin() + "\n"
@@ -497,18 +507,15 @@ public class UserInterface{
 					String[] semesters = {"Spring","Fall"};
 					JComboBox SemesterArea = new JComboBox(semesters);
 
-					SemesterArea.setSelectedItem(rental.getTerm());
+					SemesterArea.setSelectedItem(rental.getTerm().substring(0, rental.getTerm().indexOf(' ')));
 
-					SemesterArea.addActionListener(new ActionListener()
-					{
-						public void actionPerformed(ActionEvent e)
-						{
-							rental.setTerm(SemesterArea.getSelectedItem().toString());
-						}
-					});
 
 					panel.add(new JLabel("Term:"));
 					panel.add(SemesterArea);
+
+					JTextField YearArea = new JTextField(rental.getTerm().substring(rental.getTerm().indexOf(' ') + 1));
+					panel.add(new JLabel("Ending Year:"));
+					panel.add(YearArea);
 
 					int result = JOptionPane.showOptionDialog(ViewFrame, panel, "Edit Renter Information",
 							JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE,null,
@@ -527,6 +534,8 @@ public class UserInterface{
 						}
 						else
 						{
+							rental.setTerm(SemesterArea.getSelectedItem().toString() + " " + YearArea.getText());
+
 							model.getRenterAt(renters.getSelectedRow()).setRenterName(NameArea.getText());
 							model.getRenterAt(renters.getSelectedRow()).setRenterEmail(EmailArea.getText());
 							model.getRenterAt(renters.getSelectedRow()).setRenterPhone(PhoneArea.getText());
@@ -636,7 +645,7 @@ public class UserInterface{
 					int a=JOptionPane.showConfirmDialog(RemoveFrame,"This action will remove a record permanately. \n Are you sure?");
 					if(a==JOptionPane.YES_OPTION) {
 
-						int old_pin = temp.getRental().getLocker().locker_pin.getPin();
+						String old_pin = temp.getRental().getLocker().locker_pin.getPin();
 						boolean flag = manager.removeRenter(temp);
 						try {
 							manager.writeToFile();
@@ -644,7 +653,7 @@ public class UserInterface{
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
-						int new_pin = temp.getRental().getLocker().locker_pin.getPin();
+						String new_pin = temp.getRental().getLocker().locker_pin.getPin();
 						if (flag == true) {
 							JOptionPane.showMessageDialog(RemoveFrame, "Record removed\n\nCHANGE LOCKER PIN NOW\nOld Pin: " + old_pin + "\nNew Pin: " + new_pin + "\nReference the 'Change Locker pdf' to change the pin",
 									"Success!", JOptionPane.INFORMATION_MESSAGE);
